@@ -14,15 +14,10 @@ function needsGitHub(query) {
     "github",
     "repository",
     "repositories",
-    "repo",
-    "repos",
-    "commit",
+    "my repo",
+    "git repo",
+    "open source",
     "commits",
-    "star",
-    "stars",
-    "fork",
-    "code",
-    "coding",
     "github activity",
   ].some((word) => query.includes(word));
 }
@@ -35,8 +30,7 @@ function needsLeetCode(query) {
     "coding problems",
     "contest",
     "leetcode rank",
-    "leetcode rating",
-    "dsa",
+    "dsa problems",
   ].some((word) => query.includes(word));
 }
 
@@ -45,10 +39,8 @@ function needsSocials(query) {
     "linkedin",
     "instagram",
     "social",
-    "social media",
     "profile link",
     "profiles",
-    "contact",
     "find ajeet",
   ].some((word) => query.includes(word));
 }
@@ -64,36 +56,39 @@ async function getRoutedKnowledge(question) {
     socials: null,
   };
 
+  const tasks = [];
+
   if (needsGitHub(query)) {
-    try {
-      const [profile, repositories] = await Promise.all([
-        fetchGitHubProfile(),
-        fetchGitHubRepositories(),
-      ]);
-
-      knowledge.github = {
-        profile,
-        repositories,
-      };
-
-      knowledge.sourcesUsed.push("github");
-    } catch (error) {
-      console.error("Knowledge Router GitHub error:", error.message);
-    }
+    tasks.push(
+      Promise.all([fetchGitHubProfile(), fetchGitHubRepositories()]).then(
+        ([profile, repositories]) => {
+          knowledge.github = { profile, repositories };
+          knowledge.sourcesUsed.push("github");
+        }
+      ).catch((err) => {
+        console.error("Knowledge Router GitHub error:", err.message);
+      })
+    );
   }
 
   if (needsLeetCode(query)) {
-    try {
-      knowledge.leetcode = await fetchLeetCodeProfile();
-      knowledge.sourcesUsed.push("leetcode");
-    } catch (error) {
-      console.error("Knowledge Router LeetCode error:", error.message);
-    }
+    tasks.push(
+      fetchLeetCodeProfile().then((data) => {
+        knowledge.leetcode = data;
+        knowledge.sourcesUsed.push("leetcode");
+      }).catch((err) => {
+        console.error("Knowledge Router LeetCode error:", err.message);
+      })
+    );
   }
 
   if (needsSocials(query)) {
     knowledge.socials = knowledge.portfolio ? knowledge.portfolio.profiles : null;
     knowledge.sourcesUsed.push("social profiles");
+  }
+
+  if (tasks.length > 0) {
+    await Promise.all(tasks);
   }
 
   return knowledge;

@@ -40,6 +40,10 @@ function AIAssistant() {
     setInput("");
     setLoading(true);
 
+    const outgoingHistory = conversation
+      .filter((m) => !m.error && m.content && !m.content.includes("couldn't connect"))
+      .map(({ role, content }) => ({ role, content }));
+
     try {
       const response = await fetch("http://localhost:5000/api/chat", {
         method: "POST",
@@ -49,7 +53,7 @@ function AIAssistant() {
         },
 
         body: JSON.stringify({
-          messages: conversation,
+          messages: outgoingHistory,
         }),
       });
 
