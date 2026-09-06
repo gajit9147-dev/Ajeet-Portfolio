@@ -745,4 +745,244 @@ main {
   }
 }
 
+/* =========================================================
+   JOURNEY
+========================================================= */
+
+.journey-section {
+  position: relative;
+}
+
+.journey-intro {
+  display: grid;
+  grid-template-columns: 1fr 0.8fr;
+  gap: 50px;
+  align-items: end;
+  margin-top: 48px;
+  padding: 34px;
+}
+
+.journey-label {
+  font-family: "DM Mono", monospace;
+  font-size: 9px;
+  letter-spacing: 0.14em;
+  color: var(--text-muted);
+}
+
+.journey-intro h3 {
+  margin: 18px 0 0;
+  font-size: clamp(28px, 4vw, 48px);
+  line-height: 1.03;
+  letter-spacing: -0.045em;
+}
+
+.journey-intro h3 span {
+  color: var(--text-muted);
+}
+
+.journey-intro p {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 13px;
+  line-height: 1.85;
+}
+
+.journey-timeline {
+  position: relative;
+  max-width: 900px;
+  margin: 70px auto 0;
+  padding-bottom: 20px;
+}
+
+.journey-line {
+  position: absolute;
+  left: 28px;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: linear-gradient(
+    to bottom,
+    rgba(170, 190, 255, 0.5),
+    rgba(170, 190, 255, 0.05)
+  );
+}
+
+.journey-item {
+  position: relative;
+  display: grid;
+  grid-template-columns: 56px 1fr;
+  gap: 25px;
+  margin-bottom: 22px;
+}
+
+.journey-marker {
+  position: relative;
+  z-index: 2;
+  width: 56px;
+  height: 56px;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--glass-border);
+  border-radius: 50%;
+  background: rgba(10, 12, 20, 0.85);
+  backdrop-filter: blur(14px);
+  box-shadow: 0 0 25px rgba(90, 120, 255, 0.08);
+}
+
+.journey-marker span {
+  font-family: "DM Mono", monospace;
+  font-size: 9px;
+  color: var(--text-muted);
+}
+
+.journey-card {
+  position: relative;
+  padding: 25px;
+  transition:
+    transform 0.3s ease,
+    border-color 0.3s ease;
+}
+
+.journey-card:hover {
+  transform: translateX(5px);
+  border-color: rgba(180, 200, 255, 0.3);
+}
+
+.journey-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.journey-type,
+.journey-status {
+  font-family: "DM Mono", monospace;
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+}
+
+.journey-status {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.journey-status i {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #8aaeff;
+  box-shadow: 0 0 10px rgba(138, 174, 255, 0.8);
+}
+
+.journey-card h3 {
+  margin: 28px 0 7px;
+  font-size: 19px;
+  letter-spacing: -0.025em;
+}
+
+.journey-org {
+  font-family: "DM Mono", monospace;
+  font-size: 9px;
+  color: var(--text-secondary);
+  letter-spacing: 0.06em;
+}
+
+.journey-card p {
+  max-width: 650px;
+  margin: 17px 0 0;
+  color: var(--text-muted);
+  font-size: 12px;
+  line-height: 1.8;
+}
+
+.journey-index {
+  position: absolute;
+  right: 22px;
+  bottom: 17px;
+  font-family: "DM Mono", monospace;
+  font-size: 8px;
+  color: rgba(255, 255, 255, 0.18);
+}
+
+.journey-footer {
+  max-width: 900px;
+  margin: 15px auto 0;
+}
+
+.journey-footer-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 20px 24px;
+}
+
+.journey-footer-card span {
+  font-family: "DM Mono", monospace;
+  font-size: 9px;
+  color: var(--text-muted);
+  letter-spacing: 0.12em;
+}
+
+.journey-footer-card strong {
+  font-family: "DM Mono", monospace;
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+
+@media (max-width: 800px) {
+  .journey-intro {
+    grid-template-columns: 1fr;
+    gap: 25px;
+  }
+}
+
+@media (max-width: 600px) {
+  .journey-intro {
+    padding: 24px;
+  }
+
+  .journey-timeline {
+    margin-top: 50px;
+  }
+
+  .journey-item {
+    grid-template-columns: 42px 1fr;
+    gap: 15px;
+  }
+
+  .journey-line {
+    left: 20px;
+  }
+
+  .journey-marker {
+    width: 42px;
+    height: 42px;
+  }
+
+  .journey-card {
+    padding: 20px;
+  }
+
+  .journey-card-top {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .journey-card h3 {
+    font-size: 16px;
+  }
+
+  .journey-footer-card {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
+
+
 
