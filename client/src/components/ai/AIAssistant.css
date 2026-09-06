@@ -371,3 +371,107 @@
     height: min(600px, calc(100vh - 100px));
   }
 }
+
+.ai-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.ai-clear {
+  padding: 7px 8px;
+
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 7px;
+
+  background: rgba(255, 255, 255, 0.025);
+
+  color: var(--text-dim);
+
+  font-family: "DM Mono", monospace;
+  font-size: 0.48rem;
+  letter-spacing: 0.06em;
+
+  cursor: pointer;
+
+  transition:
+    color 0.2s ease,
+    border-color 0.2s ease,
+    background 0.2s ease;
+}
+
+.ai-clear:hover:not(:disabled) {
+  color: var(--text-primary);
+  border-color: rgba(120, 220, 255, 0.2);
+  background: rgba(120, 220, 255, 0.05);
+}
+
+.ai-clear:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.ai-input-area button:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.ai-typing {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+
+  padding: 12px 15px;
+
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 13px;
+
+  background: rgba(255, 255, 255, 0.035);
+}
+
+.ai-typing span {
+  width: 5px;
+  height: 5px;
+
+  border-radius: 50%;
+
+  background: var(--accent-cyan);
+
+  animation: aiTyping 1.2s ease-in-out infinite;
+}
+
+.ai-typing span:nth-child(2) {
+  animation-delay: 0.15s;
+}
+
+.ai-typing span:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+.ai-message.has-error p {
+  border-color: rgba(255, 120, 120, 0.15);
+}
+
+@keyframes aiTyping {
+  0%,
+  60%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.35;
+  }
+
+  30% {
+    transform: translateY(-4px);
+    opacity: 1;
+  }
+}
+
+@media (max-width: 600px) {
+  .ai-header-actions {
+    gap: 4px;
+  }
+
+  .ai-clear {
+    padding: 6px;
+  }
+}
