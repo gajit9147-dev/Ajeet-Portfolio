@@ -8,164 +8,175 @@ function includesAny(text, values) {
   return values.some((value) => text.includes(value));
 }
 
-function getProjectMatchesByTechnology(query) {
-  const projects = Array.isArray(ajeetProfile.projects)
+function getProjects() {
+  return Array.isArray(ajeetProfile.projects)
     ? ajeetProfile.projects
     : [];
+}
 
-  const technologyQuestions = [
+function findProjectByName(query) {
+  const projects = getProjects();
+
+  const aliases = {
+    innervoice: ["innervoice", "inner voice"],
+    promptwar: ["promptwar", "prompt war"],
+    laundry: ["laundry", "laundry service"],
+    "interior design": ["interior design", "interior"],
+  };
+
+  for (const project of projects) {
+    const name = String(project.name || "").toLowerCase();
+
+    const matchingAliases = aliases[name] || [name];
+
+    if (
+      matchingAliases.some((alias) =>
+        query.includes(alias)
+      )
+    ) {
+      return project;
+    }
+  }
+
+  return null;
+}
+
+function findProjectsByTechnology(query) {
+  const projects = getProjects();
+
+  const technologyMap = [
     {
       terms: ["gemini ai", "gemini"],
-      technologies: ["Gemini AI"],
+      technology: "Gemini AI",
     },
     {
       terms: ["react"],
-      technologies: ["React"],
+      technology: "React",
     },
     {
       terms: ["vite"],
-      technologies: ["Vite"],
+      technology: "Vite",
     },
     {
-      terms: ["node.js", "nodejs", "node"],
-      technologies: ["Node.js"],
+      terms: ["node.js", "nodejs"],
+      technology: "Node.js",
     },
     {
       terms: ["express", "express.js"],
-      technologies: ["Express"],
+      technology: "Express",
     },
     {
       terms: ["mysql"],
-      technologies: ["MySQL"],
-    },
-    {
-      terms: ["mongodb", "mongo db"],
-      technologies: ["MongoDB"],
+      technology: "MySQL",
     },
     {
       terms: ["cloudinary"],
-      technologies: ["Cloudinary"],
+      technology: "Cloudinary",
     },
     {
       terms: ["jwt", "json web token"],
-      technologies: ["JWT"],
+      technology: "JWT",
     },
     {
       terms: ["tailwind", "tailwind css"],
-      technologies: ["Tailwind CSS"],
-    },
-    {
-      terms: ["javascript"],
-      technologies: ["JavaScript"],
-    },
-    {
-      terms: ["html"],
-      technologies: ["HTML"],
-    },
-    {
-      terms: ["css"],
-      technologies: ["CSS"],
+      technology: "Tailwind CSS",
     },
     {
       terms: ["emailjs", "email js"],
-      technologies: ["EmailJS"],
+      technology: "EmailJS",
+    },
+    {
+      terms: ["javascript"],
+      technology: "JavaScript",
+    },
+    {
+      terms: ["html"],
+      technology: "HTML",
+    },
+    {
+      terms: ["css"],
+      technology: "CSS",
     },
   ];
 
-  const matches = technologyQuestions
-    .filter((item) => includesAny(query, item.terms))
-    .flatMap((item) =>
-      projects.filter((project) =>
-        item.technologies.some((technology) =>
-          project.technologies?.some(
-            (projectTechnology) =>
-              String(projectTechnology).toLowerCase() ===
-              technology.toLowerCase()
-          )
-        )
-      )
-    );
+  const matchedTechnology = technologyMap.find((item) =>
+    includesAny(query, item.terms)
+  );
 
-  return [...new Map(
-    matches.map((project) => [project.name, project])
-  ).values()];
+  if (!matchedTechnology) {
+    return [];
+  }
+
+  return projects.filter((project) =>
+    project.technologies?.some(
+      (technology) =>
+        String(technology).toLowerCase() ===
+        matchedTechnology.technology.toLowerCase()
+    )
+  );
 }
 
 function getKnowledge(question = "") {
   const q = normalizeQuestion(question);
 
-  const wantsContact =
-    includesAny(q, [
-      "contact",
-      "email",
-      "mail",
-      "phone",
-      "mobile",
-      "reach",
-    ]);
+  const wantsContact = includesAny(q, [
+    "contact",
+    "email",
+    "mail",
+    "phone",
+    "mobile",
+    "reach",
+    "how can i contact",
+    "how do i contact",
+    "how can i reach",
+  ]);
 
-  const wantsEducation =
-    includesAny(q, [
-      "study",
-      "studying",
-      "university",
-      "college",
-      "education",
-      "semester",
-      "course",
-      "degree",
-      "branch",
-      "specialization",
-    ]);
+  const wantsEducation = includesAny(q, [
+    "study",
+    "studying",
+    "university",
+    "college",
+    "education",
+    "semester",
+    "course",
+    "degree",
+    "branch",
+    "specialization",
+  ]);
 
-  const wantsSkills =
-    includesAny(q, [
-      "skill",
-      "skills",
-      "tech stack",
-      "technologies",
-      "technology",
-      "what does ajeet use",
-      "programming language",
-    ]);
+  const wantsSkills = includesAny(q, [
+    "skill",
+    "skills",
+    "tech stack",
+    "technologies",
+    "technology",
+    "programming language",
+    "what does ajeet use",
+  ]);
 
-  const wantsProjects =
-    includesAny(q, [
-      "project",
-      "projects",
-      "built",
-      "developed",
-      "created",
-    ]);
+  const wantsGeneralProjects = includesAny(q, [
+    "what projects",
+    "which projects",
+    "all projects",
+    "projects has ajeet built",
+    "projects has ajeet",
+    "what has ajeet built",
+    "projects did ajeet build",
+  ]);
 
-  const projectKeywords = [
-    "innervoice",
-    "inner voice",
-    "promptwar",
-    "prompt war",
-    "laundry service",
-    "laundry",
-    "interior design",
-    "interior",
-  ];
+  const explicitProject = findProjectByName(q);
 
-  const requestedProject = projectKeywords.find((project) =>
-    q.includes(project)
-  );
+  const technologyProjects = findProjectsByTechnology(q);
 
-  const technologyProjectMatches =
-    getProjectMatchesByTechnology(q);
-
-  const wantsCurrentFocus =
-    includesAny(q, [
-      "learning",
-      "learn",
-      "currently",
-      "working on",
-      "focus",
-      "goal",
-      "future",
-    ]);
+  const wantsCurrentFocus = includesAny(q, [
+    "learning",
+    "learn",
+    "currently",
+    "working on",
+    "focus",
+    "goal",
+    "future",
+  ]);
 
   const knowledge = {
     identity: {
@@ -189,7 +200,7 @@ function getKnowledge(question = "") {
   }
 
   /*
-   * Current focus / goals
+   * Current focus
    */
   if (wantsCurrentFocus) {
     knowledge.currentFocus = ajeetProfile.currentFocus;
@@ -197,79 +208,70 @@ function getKnowledge(question = "") {
   }
 
   /*
-   * Explicit project name:
+   * Explicit project request:
    *
    * "Tell me about InnerVoice"
-   *
-   * Return only that project.
    */
-  if (requestedProject) {
-    const projects = Array.isArray(ajeetProfile.projects)
-      ? ajeetProfile.projects
-      : [];
-
-    const matchedProject = projects.find((project) => {
-      const name = String(project.name || "").toLowerCase();
-
-      return (
-        name.includes(requestedProject) ||
-        requestedProject.includes(name) ||
-        (requestedProject.includes("inner") &&
-          name.includes("inner")) ||
-        (requestedProject.includes("prompt") &&
-          name.includes("prompt")) ||
-        (requestedProject.includes("laundry") &&
-          name.includes("laundry")) ||
-        (requestedProject.includes("interior") &&
-          name.includes("interior"))
-      );
-    });
-
-    if (matchedProject) {
-      knowledge.projects = [matchedProject];
-    }
+  if (explicitProject) {
+    knowledge.projects = [explicitProject];
   }
+
   /*
-   * Technology-based project question:
+   * Technology-specific project request:
    *
    * "Which project uses Gemini AI?"
    *
-   * Return only projects that actually use that technology.
+   * Only matching projects are returned.
    */
-  else if (technologyProjectMatches.length > 0) {
-    knowledge.projects = technologyProjectMatches;
+  else if (technologyProjects.length > 0) {
+    knowledge.projects = technologyProjects;
   }
+
   /*
-   * General project question:
+   * General project request:
    *
    * "What projects has Ajeet built?"
    *
    * Return all projects.
    */
-  else if (wantsProjects) {
-    knowledge.projects = ajeetProfile.projects;
+  else if (wantsGeneralProjects) {
+    knowledge.projects = getProjects();
   }
 
   /*
-   * Contact data is only included when explicitly requested.
+   * Contact information is only returned for explicit
+   * contact requests.
    */
   if (wantsContact) {
     knowledge.contact = ajeetProfile.contact;
   }
 
   /*
-   * General about information.
+   * Public profile links remain approved information.
    */
   if (
-    !wantsEducation &&
-    !wantsSkills &&
-    !wantsCurrentFocus &&
-    !requestedProject &&
-    technologyProjectMatches.length === 0 &&
-    !wantsProjects &&
+    q.includes("github") ||
+    q.includes("linkedin") ||
+    q.includes("instagram") ||
+    q.includes("social") ||
+    q.includes("profile")
+  ) {
+    knowledge.profiles = ajeetProfile.profiles;
+  }
+
+  /*
+   * General fallback.
+   *
+   * Do not attach the entire profile.
+   */
+  if (
+    Object.keys(knowledge).length === 1 &&
     !wantsContact
   ) {
-    knowledge.about = ajeetProfile.about;
+    knowledge.about = {
+      summary: ajeetProfile.about?.summary,
+      interests: ajeetProfile.about?.interests,
+    };
   }
 
   return knowledge;
