@@ -46,6 +46,15 @@ const ajeetProfile = {
     leetcode: "https://leetcode.com/u/COaYLmMANY/",
   },
 
+  instagram: {
+    username: "_ajeetgupta_07",
+    url: "https://www.instagram.com/_ajeetgupta_07/",
+    followers: 253,
+    following: 152,
+    posts: 0,
+    fullName: "Ajeet Gupta",
+  },
+
   skills: {
     ai_ml: [
       "Python",
