@@ -1,4 +1,5 @@
 import { useState } from "react";
+import "./Navbar.css";
 
 const navItems = [
   { label: "01", name: "HOME", href: "#home" },

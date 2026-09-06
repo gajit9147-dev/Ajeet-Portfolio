@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import "./Hero.css";
 
 export default function Hero() {
   const heroRef = useRef(null);
