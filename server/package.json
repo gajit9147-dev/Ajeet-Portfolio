@@ -11,6 +11,7 @@
     "cors": "^2.8.6",
     "dotenv": "^17.4.2",
     "express": "^5.2.1",
+    "express-rate-limit": "^8.7.0",
     "leetcode-public-api": "^1.1.1",
     "leetcode-query": "^2.0.1",
     "octokit": "^5.0.5"
