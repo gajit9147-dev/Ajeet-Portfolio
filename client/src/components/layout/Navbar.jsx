@@ -4,10 +4,11 @@ const navItems = [
   { label: "01", name: "HOME", href: "#home" },
   { label: "02", name: "ABOUT", href: "#about" },
   { label: "03", name: "PROJECTS", href: "#projects" },
-  { label: "04", name: "AI LAB", href: "#ai-lab" },
-  { label: "05", name: "STACK", href: "#stack" },
-  { label: "06", name: "JOURNEY", href: "#journey" },
-  { label: "07", name: "CONTACT", href: "#contact" },
+  { label: "04", name: "WORKFLOW", href: "#workflow" },
+  { label: "05", name: "AI LAB", href: "#ai-lab" },
+  { label: "06", name: "STACK", href: "#stack" },
+  { label: "07", name: "JOURNEY", href: "#journey" },
+  { label: "08", name: "CONTACT", href: "#contact" },
 ];
 
 export default function Navbar() {
