@@ -20,25 +20,57 @@ function AIAssistant() {
 
   const [input, setInput] = useState("");
 
-  const sendMessage = (text) => {
+  const sendMessage = async (text) => {
     const message = text.trim();
 
     if (!message) return;
 
-    setMessages((current) => [
-      ...current,
-      {
-        role: "user",
-        content: message,
-      },
-      {
-        role: "assistant",
-        content:
-          "AI connection is being prepared. Soon I'll be able to answer this using Ajeet's portfolio data.",
-      },
-    ]);
+    const userMessage = {
+      role: "user",
+      content: message,
+    };
 
+    setMessages((current) => [...current, userMessage]);
     setInput("");
+
+    try {
+      const response = await fetch("http://localhost:5000/api/chat", {
+        method: "POST",
+
+        headers: {
+          "Content-Type": "application/json",
+        },
+
+        body: JSON.stringify({
+          messages: [...messages, userMessage],
+        }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok || !data.success) {
+        throw new Error(data.message || "AI request failed");
+      }
+
+      setMessages((current) => [
+        ...current,
+        {
+          role: "assistant",
+          content: data.message,
+        },
+      ]);
+    } catch (error) {
+      console.error("Ajeet AI error:", error);
+
+      setMessages((current) => [
+        ...current,
+        {
+          role: "assistant",
+          content:
+            "I couldn't connect to the AI system right now. Please try again shortly.",
+        },
+      ]);
+    }
   };
 
   return (
