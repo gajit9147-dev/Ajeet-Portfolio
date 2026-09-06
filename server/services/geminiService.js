@@ -433,8 +433,6 @@ Never claim access to:
 - private accounts
 - unrestricted computer access
 
-Only use explicitly approved portfolio information and approved public information.
-
 ========================
 CONTACT PRIVACY
 ========================
