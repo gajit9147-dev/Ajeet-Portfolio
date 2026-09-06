@@ -1,140 +1,185 @@
+import "./Skills.css";
+
 const skillGroups = [
   {
-    code: "SYS.01",
-    title: "AI / MACHINE LEARNING",
-    status: "EXPLORING",
-    skills: ["Python", "Machine Learning", "AI Concepts", "Generative AI"],
+    id: "01",
+    title: "AI / ML",
+    description: "Intelligence layer",
+    skills: ["Python", "AI / ML", "Generative AI", "Gemini AI", "DeepSeek"],
   },
   {
-    code: "SYS.02",
+    id: "02",
     title: "FRONTEND",
-    status: "BUILDING",
-    skills: ["React", "JavaScript", "HTML", "CSS", "Tailwind CSS"],
+    description: "Interface layer",
+    skills: ["React", "Vite", "JavaScript", "HTML", "CSS", "Tailwind CSS"],
   },
   {
-    code: "SYS.03",
+    id: "03",
     title: "BACKEND",
-    status: "BUILDING",
-    skills: ["Node.js", "Express.js", "REST APIs"],
+    description: "Application layer",
+    skills: ["Node.js", "Express.js", "REST APIs", "JWT"],
   },
   {
-    code: "SYS.04",
+    id: "04",
     title: "DATABASE",
-    status: "WORKING WITH",
-    skills: ["MongoDB", "Database Design"],
+    description: "Data layer",
+    skills: ["MongoDB", "MySQL"],
   },
   {
-    code: "SYS.05",
+    id: "05",
     title: "DEVOPS / CLOUD",
-    status: "LEARNING",
-    skills: ["Git", "GitHub", "Docker", "AWS"],
+    description: "Infrastructure layer",
+    skills: ["Git", "GitHub", "Docker", "AWS", "Vercel"],
   },
   {
-    code: "SYS.06",
-    title: "DEVELOPER TOOLS",
-    status: "DAILY",
-    skills: ["VS Code", "Postman", "Linux", "npm"],
+    id: "06",
+    title: "TOOLS",
+    description: "Development environment",
+    skills: ["VS Code", "Postman", "Figma", "npm"],
   },
 ];
 
-function Skills() {
+function StackTerminal() {
   return (
-    <section id="stack" className="section skills-section">
-      <div className="section-shell">
-        <div className="section-heading">
-          <span className="section-index">06 / STACK</span>
+    <div className="stack-terminal glass">
+      <div className="stack-terminal-header">
+        <span>STACK // SYSTEM</span>
 
-          <div>
-            <p className="section-kicker">TOOLS // TECHNOLOGIES // SYSTEMS</p>
-            <h2>What I build with.</h2>
-          </div>
+        <span className="stack-terminal-status">
+          <i />
+          OPERATIONAL
+        </span>
+      </div>
+
+      <div className="stack-terminal-body">
+        <div className="stack-command">
+          <span>$</span> stack.inspect()
         </div>
 
-        <div className="stack-overview glass">
-          <div className="stack-overview-main">
-            <span className="stack-label">CURRENT_STACK</span>
+        <div className="stack-output">
+          <span>[OK]</span> frontend layer loaded
+        </div>
 
-            <h3>
-              Learning, building
+        <div className="stack-output">
+          <span>[OK]</span> backend layer loaded
+        </div>
+
+        <div className="stack-output">
+          <span>[OK]</span> database layer connected
+        </div>
+
+        <div className="stack-output">
+          <span>[OK]</span> AI exploration enabled
+        </div>
+
+        <div className="stack-output">
+          <span>[OK]</span> deployment tools available
+        </div>
+
+        <div className="stack-command stack-command-last">
+          <span>$</span> build --mode=continuous
+        </div>
+
+        <div className="stack-cursor">▊</div>
+      </div>
+    </div>
+  );
+}
+
+function SkillGroup({ group }) {
+  return (
+    <article className="skill-group glass">
+      <div className="skill-group-top">
+        <span className="skill-group-number">{group.id}</span>
+
+        <span className="skill-group-description">
+          {group.description}
+        </span>
+      </div>
+
+      <h3>{group.title}</h3>
+
+      <div className="skill-list">
+        {group.skills.map((skill) => (
+          <span key={skill} className="skill-chip">
+            <i />
+            {skill}
+          </span>
+        ))}
+      </div>
+
+      <span className="skill-arrow">↗</span>
+    </article>
+  );
+}
+
+function Skills() {
+  return (
+    <section className="section skills-section" id="stack">
+      <div className="section-shell">
+        <div className="section-heading skills-heading">
+          <div>
+            <span className="section-index">06 / STACK</span>
+
+            <h2>
+              The Tools
               <br />
-              <span>and connecting systems.</span>
-            </h3>
-
-            <p>
-              My stack evolves with the projects I build. I focus on
-              understanding the technology behind a system rather than
-              collecting tools.
-            </p>
+              I Build With.
+            </h2>
           </div>
 
-          <div className="stack-status">
-            <div>
-              <span>SYSTEM</span>
-              <strong>ACTIVE</strong>
+          <p>
+            A practical stack built around full-stack development, AI
+            exploration and shipping real projects.
+          </p>
+        </div>
+
+        <div className="stack-overview">
+          <StackTerminal />
+
+          <div className="stack-summary glass">
+            <span className="section-index">ENGINEERING MODEL</span>
+
+            <div className="stack-flow">
+              <div>
+                <strong>01</strong>
+                <span>INTERFACE</span>
+              </div>
+
+              <b>→</b>
+
+              <div>
+                <strong>02</strong>
+                <span>LOGIC</span>
+              </div>
+
+              <b>→</b>
+
+              <div>
+                <strong>03</strong>
+                <span>DATA</span>
+              </div>
+
+              <b>→</b>
+
+              <div>
+                <strong>04</strong>
+                <span>AI</span>
+              </div>
             </div>
 
-            <div>
-              <span>FOCUS</span>
-              <strong>AI + FULL-STACK</strong>
-            </div>
-
-            <div>
-              <span>MODE</span>
-              <strong>BUILD / LEARN</strong>
-            </div>
+            <p>
+              I like understanding how the pieces connect — from the user
+              interface and APIs to databases, deployment and intelligent
+              features.
+            </p>
           </div>
         </div>
 
         <div className="skills-grid">
           {skillGroups.map((group) => (
-            <article className="glass skill-group" key={group.code}>
-              <div className="skill-group-top">
-                <span>{group.code}</span>
-
-                <span className="skill-status">
-                  <i />
-                  {group.status}
-                </span>
-              </div>
-
-              <h3>{group.title}</h3>
-
-              <div className="skill-list">
-                {group.skills.map((skill) => (
-                  <span key={skill}>{skill}</span>
-                ))}
-              </div>
-            </article>
+            <SkillGroup key={group.id} group={group} />
           ))}
-        </div>
-
-        <div className="stack-terminal glass">
-          <div className="stack-terminal-header">
-            <span>STACK_ANALYSIS</span>
-            <span>06.2026</span>
-          </div>
-
-          <div className="stack-terminal-content">
-            <span className="terminal-prompt">$</span>
-
-            <span>
-              stack.inspect(<b>current</b>)
-            </span>
-
-            <span className="terminal-result">
-              → AI / ML + Full-Stack Engineering
-            </span>
-
-            <span className="terminal-prompt">$</span>
-
-            <span>
-              stack.mode(<b>learning</b>)
-            </span>
-
-            <span className="terminal-result">
-              → continuously evolving
-            </span>
-          </div>
         </div>
       </div>
     </section>
