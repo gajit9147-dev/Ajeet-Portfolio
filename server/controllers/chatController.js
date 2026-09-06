@@ -1,4 +1,4 @@
-const { askDeepSeek } = require("../services/deepseekService");
+const { askGemini } = require("../services/deepseekService");
 
 async function chatController(req, res) {
   try {
@@ -27,7 +27,7 @@ async function chatController(req, res) {
       });
     }
 
-    const answer = await askDeepSeek(cleanedMessages);
+    const answer = await askGemini(cleanedMessages);
 
     return res.json({
       success: true,
