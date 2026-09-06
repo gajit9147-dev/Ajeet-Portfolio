@@ -1,9 +1,9 @@
-const DEEPSEEK_API_URL = "https://api.deepseek.com/chat/completions";
+const { GoogleGenAI } = require("@google/genai");
 
 const portfolioContext = `
 You are Ajeet AI, the personal AI assistant for Ajeet Gupta's portfolio.
 
-Your job is to answer questions about Ajeet accurately and naturally.
+Your job is to answer questions about Ajeet accurately, naturally and concisely.
 
 ABOUT AJEET:
 - CSE student specializing in Artificial Intelligence and Machine Learning.
@@ -48,7 +48,8 @@ PROJECTS:
 - Visual home-design experience.
 
 TECH STACK:
-AI/ML:
+
+AI / ML:
 Python, AI/ML, Generative AI, Gemini AI, AI APIs.
 
 Frontend:
@@ -67,56 +68,52 @@ Tools:
 VS Code, Postman, Figma, npm.
 
 IMPORTANT RULES:
-- Do not invent companies, jobs, awards, clients, salaries or achievements.
-- Do not claim Ajeet is an expert unless the portfolio explicitly says so.
-- If information is unavailable, say that it is not currently listed in the portfolio.
+- Never invent companies, jobs, awards, clients, salaries or achievements.
+- Never claim Ajeet is an expert unless the portfolio explicitly says so.
+- If information is unavailable, say it is not currently listed.
 - Keep answers concise and conversational.
 - When discussing projects, explain what they do and the technologies involved.
-- You are an assistant representing Ajeet, not Ajeet himself.
+- You represent Ajeet's portfolio; you are not Ajeet himself.
 `;
 
-async function askDeepSeek(messages) {
-  const apiKey = process.env.DEEPSEEK_API_KEY;
+async function askGemini(messages) {
+  const apiKey = process.env.GEMINI_API_KEY;
 
   if (!apiKey) {
-    throw new Error("DEEPSEEK_API_KEY is not configured");
+    throw new Error("GEMINI_API_KEY is not configured");
   }
 
-  const response = await fetch(DEEPSEEK_API_URL, {
-    method: "POST",
-
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${apiKey}`,
-    },
-
-    body: JSON.stringify({
-      model: "deepseek-chat",
-      messages: [
-        {
-          role: "system",
-          content: portfolioContext,
-        },
-        ...messages,
-      ],
-      temperature: 0.5,
-      max_tokens: 600,
-    }),
+  const ai = new GoogleGenAI({
+    apiKey,
   });
 
-  if (!response.ok) {
-    const errorText = await response.text();
+  const conversation = messages.map((message) => ({
+    role: message.role === "assistant" ? "model" : "user",
+    parts: [
+      {
+        text: message.content,
+      },
+    ],
+  }));
 
-    throw new Error(
-      `DeepSeek API error ${response.status}: ${errorText}`
-    );
-  }
+  const response = await ai.models.generateContent({
+    model: "gemini-2.5-flash",
 
-  const data = await response.json();
+    contents: conversation,
 
-  return data.choices?.[0]?.message?.content || "No response generated.";
+    config: {
+      systemInstruction: portfolioContext,
+
+      temperature: 0.5,
+
+      maxOutputTokens: 600,
+    },
+  });
+
+  return response.text || "No response generated.";
 }
 
 module.exports = {
-  askDeepSeek,
+  askGemini,
+  askDeepSeek: askGemini,
 };
