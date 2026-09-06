@@ -1,3 +1,5 @@
+import "./Contact.css";
+
 const contactLinks = [
   {
     label: "GITHUB",
@@ -7,7 +9,7 @@ const contactLinks = [
   {
     label: "LINKEDIN",
     value: "Connect professionally",
-    href: "#",
+    href: "https://www.linkedin.com/",
   },
   {
     label: "EMAIL",
@@ -16,85 +18,137 @@ const contactLinks = [
   },
 ];
 
-function Contact() {
+function ContactTerminal() {
   return (
-    <section id="contact" className="section contact-section">
-      <div className="section-shell">
-        <div className="section-heading">
-          <span className="section-index">08 / CONTACT</span>
+    <div className="contact-terminal glass">
+      <div className="contact-terminal-header">
+        <span>CONTACT // TERMINAL</span>
 
-          <div>
-            <p className="section-kicker">CONNECTION // COLLABORATION</p>
-            <h2>Let's build something.</h2>
-          </div>
+        <span className="contact-terminal-status">
+          <i />
+          READY
+        </span>
+      </div>
+
+      <div className="contact-terminal-body">
+        <div>
+          <span className="terminal-prompt">$</span> connection.init()
         </div>
 
+        <p>
+          establishing secure communication channel...
+        </p>
+
+        <p className="contact-success">
+          [OK] channel ready
+        </p>
+
+        <div className="contact-command">
+          <span className="terminal-prompt">$</span> send --message
+        </div>
+
+        <p>
+          Have an idea, opportunity or project?
+        </p>
+
+        <p>
+          Let's build something useful.
+        </p>
+
+        <span className="contact-cursor">▊</span>
+      </div>
+    </div>
+  );
+}
+
+function Contact() {
+  return (
+    <section className="section contact-section" id="contact">
+      <div className="section-shell">
         <div className="contact-main glass">
           <div className="contact-copy">
-            <div className="contact-status">
-              <i />
-              OPEN TO OPPORTUNITIES
-            </div>
+            <span className="section-index">08 / CONTACT</span>
 
-            <h3>
-              Have an idea,
+            <h2>
+              Let's Build
               <br />
-              <span>project or challenge?</span>
-            </h3>
+              Something
+              <br />
+              Intelligent.
+            </h2>
 
             <p>
-              I'm always interested in learning, building and collaborating
-              on meaningful technology projects.
+              I'm always interested in interesting problems, ambitious ideas,
+              collaborations and opportunities to learn by building.
             </p>
 
             <a
               href="mailto:your-email@example.com"
-              className="contact-primary-button"
+              className="contact-primary"
             >
               START A CONVERSATION
               <span>↗</span>
             </a>
           </div>
 
-          <div className="contact-orb-area">
-            <div className="contact-orb">
-              <div className="contact-orb-inner">
-                <span>AG</span>
-              </div>
-
-              <div className="contact-orbit orbit-one" />
-              <div className="contact-orbit orbit-two" />
+          <div className="contact-orb">
+            <div className="contact-orb-ring ring-one" />
+            <div className="contact-orb-ring ring-two" />
+            <div className="contact-orb-core">
+              <span>AG</span>
             </div>
 
-            <span className="contact-orb-label">
-              AJEET // AI SYSTEMS LAB
-            </span>
+            <div className="contact-orb-label label-one">
+              OPEN_CHANNEL
+            </div>
+
+            <div className="contact-orb-label label-two">
+              SYS.08
+            </div>
           </div>
         </div>
 
-        <div className="contact-links">
-          {contactLinks.map((link) => (
-            <a
-              key={link.label}
-              href={link.href}
-              className="glass contact-link"
-              target={link.href.startsWith("http") ? "_blank" : undefined}
-              rel={link.href.startsWith("http") ? "noreferrer" : undefined}
-            >
-              <span className="contact-link-label">{link.label}</span>
+        <div className="contact-grid">
+          <ContactTerminal />
 
-              <strong>{link.value}</strong>
+          <div className="contact-links glass">
+            <span className="section-index">DIRECT CHANNELS</span>
 
-              <span className="contact-link-arrow">↗</span>
-            </a>
-          ))}
+            <div className="contact-link-list">
+              {contactLinks.map((link) => (
+                <a
+                  key={link.label}
+                  href={link.href}
+                  target={link.href.startsWith("mailto:") ? undefined : "_blank"}
+                  rel={
+                    link.href.startsWith("mailto:")
+                      ? undefined
+                      : "noreferrer"
+                  }
+                  className="contact-link"
+                >
+                  <div>
+                    <span>{link.label}</span>
+                    <strong>{link.value}</strong>
+                  </div>
+
+                  <span>↗</span>
+                </a>
+              ))}
+            </div>
+          </div>
         </div>
 
-        <div className="contact-bottom">
-          <span>© 2026 AJEET GUPTA</span>
-          <span>CSE · AI/ML · FULL-STACK</span>
-          <span>BUILT WITH CURIOSITY</span>
-        </div>
+        <footer className="site-footer glass">
+          <div>
+            <strong>AJEET // AI SYSTEMS LAB</strong>
+            <span>CSE · AI/ML · FULL-STACK</span>
+          </div>
+
+          <span>© {new Date().getFullYear()} AJEET GUPTA</span>
+
+          <span>BUILDING · LEARNING · EVOLVING</span>
+        </footer>
       </div>
     </section>
   );
