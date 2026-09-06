@@ -301,14 +301,31 @@
   padding: 0;
 }
 
-.ai-message-content a {
+.ai-message-content a,
+.ai-link {
   color: var(--accent-cyan);
   text-decoration: underline;
-  text-underline-offset: 2px;
+  text-underline-offset: 3px;
+  font-weight: 500;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: baseline;
+  gap: 2px;
+  transition: color 0.15s ease, text-decoration-color 0.15s ease;
+  word-break: break-all;
 }
 
-.ai-message-content a:hover {
-  color: #fff;
+.ai-message-content a:hover,
+.ai-link:hover {
+  color: #ffffff;
+  text-decoration-color: #ffffff;
+}
+
+.ai-link-icon {
+  font-size: 0.75em;
+  opacity: 0.8;
+  display: inline-block;
+  transform: translateY(-1px);
 }
 
 .ai-suggestions {

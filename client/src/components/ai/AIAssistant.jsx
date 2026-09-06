@@ -1,5 +1,6 @@
 import { useState } from "react";
 import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 import "./AIAssistant.css";
 
 const suggestedQuestions = [
@@ -163,7 +164,26 @@ function AIAssistant() {
                 </span>
 
                 <div className="ai-message-content">
-                  <ReactMarkdown>
+                  <ReactMarkdown
+                    remarkPlugins={[remarkGfm]}
+                    components={{
+                      a: ({ href, children, ...props }) => (
+                        <a
+                          href={href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="ai-link"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                          }}
+                          {...props}
+                        >
+                          {children}
+                          <span className="ai-link-icon" aria-hidden="true"> ↗</span>
+                        </a>
+                      ),
+                    }}
+                  >
                     {message.content}
                   </ReactMarkdown>
                 </div>

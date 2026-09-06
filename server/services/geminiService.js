@@ -36,7 +36,7 @@ function generateSmartFallback(question, routedKnowledge) {
 
     let response = `### Ajeet's Instagram
 
-**Profile:** ${instagram.profileUrl}`;
+**Profile:** [${instagram.profileUrl}](${instagram.profileUrl})`;
 
     if (
       instagram.followerCount !== null &&
@@ -193,7 +193,7 @@ ${project.description}
           .join(", ")
       : "";
 
-    let response = `**Ajeet's LeetCode:** ${lc.profileUrl}`;
+    let response = `**Ajeet's LeetCode:** [${lc.profileUrl}](${lc.profileUrl})`;
 
     if (stats) {
       response += `\n\n**Solved statistics:** ${stats}`;
@@ -220,7 +220,7 @@ ${project.description}
 
     if (!github) {
       return profiles?.github
-        ? `**Ajeet's GitHub:** ${profiles.github}`
+        ? `**Ajeet's GitHub:** [${profiles.github}](${profiles.github})`
         : "Ajeet's GitHub information is not currently available.";
     }
 
@@ -228,7 +228,7 @@ ${project.description}
     const repositories = github.repositories || [];
 
     let response = profile?.profileUrl
-      ? `**Ajeet's GitHub:** ${profile.profileUrl}`
+      ? `**Ajeet's GitHub:** [${profile.profileUrl}](${profile.profileUrl})`
       : "";
 
     if (
@@ -257,7 +257,7 @@ ${project.description}
               repo.language
                 ? `\nLanguage: ${repo.language}`
                 : ""
-            }\n${repo.url}`
+            }\n[${repo.url}](${repo.url})`
         )
         .join("\n\n");
     }
@@ -284,16 +284,16 @@ ${project.description}
 
     return `You can contact **Ajeet Gupta** through:
 
-**Email:** ${contact.email}
+**Email:** [${contact.email}](mailto:${contact.email})
 
-**Phone:** ${contact.phone}
+**Phone:** [${contact.phone}](tel:${contact.phone})
 
 **LinkedIn:** ${
-      profiles?.linkedin || "Not currently listed"
+      profiles?.linkedin ? `[${profiles.linkedin}](${profiles.linkedin})` : "Not currently listed"
     }
 
 **GitHub:** ${
-      profiles?.github || "Not currently listed"
+      profiles?.github ? `[${profiles.github}](${profiles.github})` : "Not currently listed"
     }`;
   }
 
@@ -312,13 +312,13 @@ ${project.description}
 
     return `### Ajeet's Public Profiles
 
-**GitHub:** ${profiles.github}
+**GitHub:** [${profiles.github}](${profiles.github})
 
-**LinkedIn:** ${profiles.linkedin}
+**LinkedIn:** [${profiles.linkedin}](${profiles.linkedin})
 
-**LeetCode:** ${profiles.leetcode}
+**LeetCode:** [${profiles.leetcode}](${profiles.leetcode})
 
-**Instagram:** ${profiles.instagram}`;
+**Instagram:** [${profiles.instagram}](${profiles.instagram})`;
   }
 
   /*
@@ -492,6 +492,8 @@ Do not use raw asterisk-only bullet formatting.
 Keep simple questions short.
 
 Give detailed answers when requested.
+
+When providing URLs or social profiles (GitHub, LinkedIn, Instagram, LeetCode, demos, email), ALWAYS format them as clickable Markdown links, for example: [https://...](https://...) or [Instagram Profile](https://...). Never output raw unclickable text.
 
 Do not repeat unnecessary information.
 
