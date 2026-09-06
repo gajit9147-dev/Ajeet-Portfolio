@@ -1,111 +1,171 @@
-const journeyItems = [
+import "./Journey.css";
+
+const milestones = [
   {
-    year: "01",
+    id: "01",
     type: "EDUCATION",
+    year: "CURRENT",
     title: "CSE · Artificial Intelligence & Machine Learning",
-    organization: "Currently pursuing",
+    place: "Computer Science & Engineering",
     description:
-      "Building a foundation in computer science, artificial intelligence and machine learning while developing practical software projects.",
-    status: "CURRENT",
+      "Building a strong foundation in computer science while focusing on artificial intelligence, machine learning and software development.",
+    state: "IN PROGRESS",
   },
   {
-    year: "02",
-    type: "BUILDING",
+    id: "02",
+    type: "BUILD",
+    year: "ONGOING",
     title: "Full-Stack Development",
-    organization: "Projects & Experiments",
+    place: "Projects · Experiments · Systems",
     description:
-      "Developing web applications across frontend, backend, databases and APIs while learning how complete systems work together.",
-    status: "ACTIVE",
+      "Learning by building complete applications across frontend, backend, databases, APIs and deployment.",
+    state: "ACTIVE",
   },
   {
-    year: "03",
-    type: "HACKATHONS",
-    title: "Learning Through Challenges",
-    organization: "Hackathons & Competitions",
+    id: "03",
+    type: "AI",
+    year: "ONGOING",
+    title: "AI & Generative AI Exploration",
+    place: "AI Lab",
     description:
-      "Turning ideas into working prototypes under time constraints and learning through rapid experimentation.",
-    status: "ACTIVE",
+      "Exploring practical ways to integrate AI into applications and create more intelligent digital experiences.",
+    state: "EXPLORING",
   },
   {
-    year: "04",
-    type: "AI EXPLORATION",
-    title: "Exploring Intelligent Systems",
-    organization: "AI / ML / GenAI",
+    id: "04",
+    type: "HACKATHON",
+    year: "ACTIVE",
+    title: "Hackathons & Rapid Prototyping",
+    place: "Build · Test · Iterate",
     description:
-      "Exploring how AI can be integrated into useful products, interfaces and full-stack systems.",
-    status: "EXPLORING",
+      "Using hackathons as an environment to turn ideas into working prototypes under real constraints.",
+    state: "BUILDING",
   },
 ];
 
-function Journey() {
+function JourneyTerminal() {
   return (
-    <section id="journey" className="section journey-section">
-      <div className="section-shell">
-        <div className="section-heading">
-          <span className="section-index">07 / JOURNEY</span>
+    <div className="journey-terminal glass">
+      <div className="journey-terminal-header">
+        <span>JOURNEY // SYSTEM LOG</span>
 
-          <div>
-            <p className="section-kicker">EDUCATION // BUILDING // GROWTH</p>
-            <h2>The path so far.</h2>
-          </div>
+        <span className="journey-status">
+          <i />
+          RUNNING
+        </span>
+      </div>
+
+      <div className="journey-terminal-body">
+        <div>
+          <span className="terminal-prompt">$</span> journey.status()
         </div>
 
-        <div className="journey-intro glass">
-          <div>
-            <span className="journey-label">CURRENT_STATE</span>
+        <p>
+          <span>[01]</span> education → in progress
+        </p>
 
-            <h3>
-              Student by identity.
+        <p>
+          <span>[02]</span> engineering → building
+        </p>
+
+        <p>
+          <span>[03]</span> ai exploration → active
+        </p>
+
+        <p>
+          <span>[04]</span> hackathons → experimenting
+        </p>
+
+        <div className="journey-command">
+          <span className="terminal-prompt">$</span> next --challenge
+        </div>
+
+        <div className="journey-terminal-result">
+          Keep learning. Keep building.
+        </div>
+
+        <span className="journey-cursor">▊</span>
+      </div>
+    </div>
+  );
+}
+
+function Milestone({ milestone }) {
+  return (
+    <article className="journey-milestone glass">
+      <div className="milestone-marker">
+        <span>{milestone.id}</span>
+      </div>
+
+      <div className="milestone-content">
+        <div className="milestone-meta">
+          <span>{milestone.type}</span>
+          <span>{milestone.year}</span>
+        </div>
+
+        <h3>{milestone.title}</h3>
+
+        <div className="milestone-place">{milestone.place}</div>
+
+        <p>{milestone.description}</p>
+
+        <div className="milestone-state">
+          <i />
+          {milestone.state}
+        </div>
+      </div>
+    </article>
+  );
+}
+
+function Journey() {
+  return (
+    <section className="section journey-section" id="journey">
+      <div className="section-shell">
+        <div className="section-heading journey-heading">
+          <div>
+            <span className="section-index">07 / JOURNEY</span>
+
+            <h2>
+              Learning.
               <br />
-              <span>Builder by practice.</span>
-            </h3>
+              Building.
+              <br />
+              Evolving.
+            </h2>
           </div>
 
           <p>
-            My journey is currently centered around learning, building and
-            experimenting. Each project adds another layer to the systems I
-            understand and the problems I can solve.
+            My journey is less about following a fixed path and more about
+            continuously learning, building projects and experimenting with
+            new technology.
           </p>
         </div>
 
-        <div className="journey-timeline">
-          <div className="journey-line" />
+        <div className="journey-layout">
+          <JourneyTerminal />
 
-          {journeyItems.map((item, index) => (
-            <article className="journey-item" key={item.year}>
-              <div className="journey-marker">
-                <span>{item.year}</span>
-              </div>
+          <div className="journey-timeline">
+            <div className="journey-line" />
 
-              <div className="glass journey-card">
-                <div className="journey-card-top">
-                  <span className="journey-type">{item.type}</span>
-
-                  <span className="journey-status">
-                    <i />
-                    {item.status}
-                  </span>
-                </div>
-
-                <h3>{item.title}</h3>
-
-                <span className="journey-org">{item.organization}</span>
-
-                <p>{item.description}</p>
-
-                <span className="journey-index">
-                  0{index + 1} / 0{journeyItems.length}
-                </span>
-              </div>
-            </article>
-          ))}
+            {milestones.map((milestone) => (
+              <Milestone key={milestone.id} milestone={milestone} />
+            ))}
+          </div>
         </div>
 
-        <div className="journey-footer">
-          <div className="glass journey-footer-card">
-            <span>NEXT_CHAPTER</span>
-            <strong>BUILD → LEARN → ITERATE → REPEAT</strong>
-          </div>
+        <div className="journey-principle glass">
+          <span className="section-index">CURRENT PRINCIPLE</span>
+
+          <h3>
+            Build something.
+            <br />
+            Learn something.
+            <br />
+            Build it better.
+          </h3>
+
+          <span className="principle-mark">07</span>
         </div>
       </div>
     </section>
