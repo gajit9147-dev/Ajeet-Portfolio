@@ -8,30 +8,36 @@ const suggestedQuestions = [
   "What is Ajeet learning?",
 ];
 
+const initialMessage = {
+  role: "assistant",
+  content:
+    "Hi. I'm Ajeet AI — an interface for exploring Ajeet's projects, skills and journey.",
+};
+
 function AIAssistant() {
   const [open, setOpen] = useState(false);
-  const [messages, setMessages] = useState([
-    {
-      role: "assistant",
-      content:
-        "Hi. I'm Ajeet AI — an interface for exploring Ajeet's projects, skills and journey.",
-    },
-  ]);
+
+  const [messages, setMessages] = useState([initialMessage]);
 
   const [input, setInput] = useState("");
+
+  const [loading, setLoading] = useState(false);
 
   const sendMessage = async (text) => {
     const message = text.trim();
 
-    if (!message) return;
+    if (!message || loading) return;
 
     const userMessage = {
       role: "user",
       content: message,
     };
 
-    setMessages((current) => [...current, userMessage]);
+    const conversation = [...messages, userMessage];
+
+    setMessages(conversation);
     setInput("");
+    setLoading(true);
 
     try {
       const response = await fetch("http://localhost:5000/api/chat", {
@@ -42,7 +48,7 @@ function AIAssistant() {
         },
 
         body: JSON.stringify({
-          messages: [...messages, userMessage],
+          messages: conversation,
         }),
       });
 
@@ -68,9 +74,18 @@ function AIAssistant() {
           role: "assistant",
           content:
             "I couldn't connect to the AI system right now. Please try again shortly.",
+          error: true,
         },
       ]);
+    } finally {
+      setLoading(false);
     }
+  };
+
+  const clearChat = () => {
+    if (loading) return;
+
+    setMessages([initialMessage]);
   };
 
   return (
@@ -102,27 +117,41 @@ function AIAssistant() {
 
               <div>
                 <strong>AJEET AI</strong>
+
                 <span>
                   <i />
-                  SYSTEM READY
+                  {loading ? "PROCESSING" : "SYSTEM READY"}
                 </span>
               </div>
             </div>
 
-            <button
-              className="ai-close"
-              onClick={() => setOpen(false)}
-              aria-label="Close Ajeet AI"
-            >
-              ×
-            </button>
+            <div className="ai-header-actions">
+              <button
+                className="ai-clear"
+                onClick={clearChat}
+                disabled={loading}
+                title="Clear conversation"
+              >
+                CLEAR
+              </button>
+
+              <button
+                className="ai-close"
+                onClick={() => setOpen(false)}
+                aria-label="Close Ajeet AI"
+              >
+                ×
+              </button>
+            </div>
           </div>
 
           <div className="ai-chat-body">
             {messages.map((message, index) => (
               <div
                 key={`${message.role}-${index}`}
-                className={`ai-message ${message.role}`}
+                className={`ai-message ${message.role} ${
+                  message.error ? "has-error" : ""
+                }`}
               >
                 <span className="ai-message-label">
                   {message.role === "assistant" ? "AI" : "YOU"}
@@ -132,7 +161,19 @@ function AIAssistant() {
               </div>
             ))}
 
-            {messages.length === 1 && (
+            {loading && (
+              <div className="ai-message assistant">
+                <span className="ai-message-label">AI</span>
+
+                <div className="ai-typing">
+                  <span />
+                  <span />
+                  <span />
+                </div>
+              </div>
+            )}
+
+            {messages.length === 1 && !loading && (
               <div className="ai-suggestions">
                 <span>TRY ASKING</span>
 
@@ -161,11 +202,19 @@ function AIAssistant() {
             <input
               value={input}
               onChange={(event) => setInput(event.target.value)}
-              placeholder="Ask about Ajeet..."
+              placeholder={
+                loading ? "AI is thinking..." : "Ask about Ajeet..."
+              }
+              disabled={loading}
               aria-label="Ask Ajeet AI"
             />
 
-            <button type="submit">SEND ↗</button>
+            <button
+              type="submit"
+              disabled={loading || !input.trim()}
+            >
+              {loading ? "..." : "SEND ↗"}
+            </button>
           </form>
         </div>
       )}
