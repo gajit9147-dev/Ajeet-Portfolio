@@ -7,6 +7,7 @@ import AILab from "./sections/AILab/AILab";
 import Skills from "./sections/Skills/Skills";
 import Journey from "./sections/Journey/Journey";
 import Contact from "./sections/Contact/Contact";
+import AIAssistant from "./components/ai/AIAssistant";
 
 function App() {
   return (
@@ -29,6 +30,8 @@ function App() {
         <Journey />
         <Contact />
       </main>
+
+      <AIAssistant />
     </div>
   );
 }
