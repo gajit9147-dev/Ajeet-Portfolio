@@ -1,1 +1,571 @@
-/* Contact.css */
+/* =========================================================
+   CONTACT SECTION STYLES
+   Futuristic Liquid Glass & Intelligent Terminal Layout
+========================================================= */
+
+.contact-section {
+  position: relative;
+  width: 100%;
+  padding: 50px 0 35px;
+}
+
+.contact-section .section-shell {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: min(1200px, calc(100% - 48px));
+  margin: 0 auto;
+  padding: 0;
+}
+
+/* =========================================================
+   MAIN CONTACT HERO CARD
+========================================================= */
+
+.contact-main {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  align-items: center;
+  min-height: 440px;
+  border-radius: 28px;
+  padding: clamp(36px, 5vw, 64px);
+  overflow: hidden;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.055) 0%,
+    rgba(255, 255, 255, 0.015) 100%
+  );
+  border: 1px solid var(--glass-border);
+  box-shadow:
+    0 24px 60px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.contact-main::before {
+  content: "";
+  position: absolute;
+  top: -40%;
+  right: -20%;
+  width: 500px;
+  height: 500px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(97, 232, 255, 0.12) 0%,
+    rgba(156, 124, 255, 0.06) 40%,
+    transparent 70%
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+
+.contact-copy {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.contact-copy .section-index {
+  display: inline-block;
+  margin-bottom: 16px;
+  color: var(--accent-cyan, #61e8ff);
+  font-family: var(--mono);
+  font-size: 0.76rem;
+  letter-spacing: 0.16em;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+.contact-copy h2 {
+  margin: 0 0 20px;
+  font-size: clamp(2.4rem, 4.5vw, 4.2rem);
+  line-height: 1.05;
+  letter-spacing: -0.04em;
+  font-weight: 700;
+  color: #ffffff;
+  background: linear-gradient(135deg, #ffffff 40%, #a5c2ff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.contact-copy p {
+  margin: 0 0 32px;
+  max-width: 480px;
+  color: var(--text-muted, #8991a5);
+  font-size: clamp(0.95rem, 1.15vw, 1.05rem);
+  line-height: 1.75;
+}
+
+.contact-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  padding: 13px 26px;
+  border-radius: 999px;
+  background: linear-gradient(
+    135deg,
+    rgba(97, 232, 255, 0.14),
+    rgba(156, 124, 255, 0.14)
+  );
+  border: 1px solid rgba(97, 232, 255, 0.38);
+  color: #ffffff;
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-decoration: none;
+  transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+  box-shadow: 0 4px 20px rgba(97, 232, 255, 0.08);
+}
+
+.contact-primary span {
+  font-size: 1rem;
+  transition: transform 0.25s ease;
+}
+
+.contact-primary:hover {
+  background: linear-gradient(
+    135deg,
+    rgba(97, 232, 255, 0.24),
+    rgba(156, 124, 255, 0.24)
+  );
+  border-color: rgba(97, 232, 255, 0.75);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(97, 232, 255, 0.25);
+  color: #ffffff;
+}
+
+.contact-primary:hover span {
+  transform: translate(3px, -3px);
+}
+
+/* =========================================================
+   CONTACT ORB / RADAR VISUAL
+========================================================= */
+
+.contact-orb {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 340px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.contact-orb-ring {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.ring-one {
+  width: 180px;
+  height: 180px;
+  border: 1px dashed rgba(97, 232, 255, 0.32);
+  animation: orbSpin 20s linear infinite;
+}
+
+.ring-two {
+  width: 270px;
+  height: 270px;
+  border: 1px solid rgba(156, 124, 255, 0.22);
+  animation: orbSpinReverse 28s linear infinite;
+}
+
+@keyframes orbSpin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes orbSpinReverse {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(-360deg);
+  }
+}
+
+.contact-orb-core {
+  position: absolute;
+  width: 88px;
+  height: 88px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(
+    circle at 35% 35%,
+    rgba(97, 232, 255, 0.28),
+    rgba(8, 12, 22, 0.92)
+  );
+  border: 1px solid rgba(97, 232, 255, 0.5);
+  backdrop-filter: blur(14px);
+  box-shadow:
+    0 0 35px rgba(97, 232, 255, 0.3),
+    inset 0 0 20px rgba(255, 255, 255, 0.15);
+  z-index: 3;
+}
+
+.contact-orb-core span {
+  font-family: var(--mono);
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: #ffffff;
+  text-shadow: 0 0 12px rgba(97, 232, 255, 0.7);
+}
+
+.contact-orb-label {
+  position: absolute;
+  font-family: var(--mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.12em;
+  color: var(--text-dim, #7a8499);
+  padding: 5px 11px;
+  border-radius: 8px;
+  background: rgba(5, 6, 10, 0.75);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  backdrop-filter: blur(10px);
+}
+
+.label-one {
+  top: 25px;
+  right: 25px;
+}
+
+.label-two {
+  bottom: 25px;
+  left: 25px;
+}
+
+/* =========================================================
+   CONTACT GRID (TERMINAL + CHANNELS)
+========================================================= */
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  width: 100%;
+}
+
+/* =========================================================
+   TERMINAL CARD
+========================================================= */
+
+.contact-terminal {
+  border-radius: 24px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  background: rgba(9, 14, 24, 0.75);
+  border: 1px solid var(--glass-border);
+  box-shadow:
+    0 20px 45px rgba(0, 0, 0, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.contact-terminal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 22px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+  background: rgba(255, 255, 255, 0.02);
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+}
+
+.contact-terminal-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #72f6c4;
+  font-size: 0.7rem;
+  font-weight: 500;
+}
+
+.contact-terminal-status i {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #72f6c4;
+  box-shadow: 0 0 10px #72f6c4;
+  animation: terminalStatusPulse 2s infinite ease-in-out;
+}
+
+@keyframes terminalStatusPulse {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.5;
+    transform: scale(0.85);
+  }
+}
+
+.contact-terminal-body {
+  padding: 24px 26px;
+  font-family: var(--mono);
+  font-size: 0.84rem;
+  line-height: 1.85;
+  color: #cfd8dc;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1;
+}
+
+.contact-terminal-body p {
+  margin: 0;
+}
+
+.terminal-prompt {
+  color: var(--accent-cyan, #61e8ff);
+  font-weight: 600;
+  margin-right: 6px;
+}
+
+.contact-success {
+  color: #72f6c4;
+  font-weight: 500;
+}
+
+.contact-command {
+  color: #f4f7ff;
+  margin-top: 4px;
+}
+
+.contact-cursor {
+  display: inline-block;
+  color: var(--accent-cyan, #61e8ff);
+  margin-top: 6px;
+  animation: contactBlink 1s infinite steps(2, start);
+}
+
+@keyframes contactBlink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+/* =========================================================
+   CHANNELS CARD
+========================================================= */
+
+.contact-links {
+  border-radius: 24px;
+  padding: 26px 28px;
+  display: flex;
+  flex-direction: column;
+  background: rgba(9, 14, 24, 0.75);
+  border: 1px solid var(--glass-border);
+  box-shadow:
+    0 20px 45px rgba(0, 0, 0, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.contact-links .section-index {
+  display: inline-block;
+  margin-bottom: 20px;
+  color: var(--accent-cyan, #61e8ff);
+  font-family: var(--mono);
+  font-size: 0.74rem;
+  letter-spacing: 0.16em;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+.contact-link-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  flex: 1;
+  justify-content: center;
+}
+
+.contact-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.028);
+  border: 1px solid rgba(255, 255, 255, 0.065);
+  transition: all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+  text-decoration: none;
+}
+
+.contact-link:hover {
+  background: rgba(97, 232, 255, 0.06);
+  border-color: rgba(97, 232, 255, 0.35);
+  transform: translateX(4px);
+}
+
+.contact-link div {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.contact-link span {
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  color: var(--accent-cyan, #61e8ff);
+}
+
+.contact-link strong {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #f4f7ff;
+}
+
+.contact-link > span:last-child {
+  font-size: 1.1rem;
+  color: var(--text-muted);
+  transition: transform 0.25s ease, color 0.25s ease;
+}
+
+.contact-link:hover > span:last-child {
+  transform: translate(3px, -3px);
+  color: var(--accent-cyan, #61e8ff);
+}
+
+/* =========================================================
+   SITE FOOTER
+========================================================= */
+
+.site-footer {
+  border-radius: 20px;
+  padding: 22px 28px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  background: rgba(9, 14, 24, 0.7);
+  border: 1px solid var(--glass-border);
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  margin-top: 10px;
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.3);
+}
+
+.site-footer div {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.site-footer strong {
+  color: #f4f7ff;
+  font-size: 0.78rem;
+  letter-spacing: 0.1em;
+}
+
+.site-footer span {
+  color: var(--text-dim, #7a8499);
+}
+
+/* =========================================================
+   RESPONSIVE LAYOUT & BREAKPOINTS
+========================================================= */
+
+@media (max-width: 960px) {
+  .contact-main {
+    grid-template-columns: 1fr;
+    gap: 36px;
+    padding: 40px 28px;
+  }
+
+  .contact-orb {
+    height: 260px;
+  }
+
+  .contact-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+}
+
+@media (max-width: 640px) {
+  .contact-section {
+    padding: 35px 0 25px;
+  }
+
+  .contact-section .section-shell {
+    width: calc(100% - 32px);
+    gap: 18px;
+  }
+
+  .contact-copy h2 {
+    font-size: 2.1rem;
+  }
+
+  .contact-primary {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .contact-orb {
+    height: 220px;
+  }
+
+  .ring-two {
+    width: 210px;
+    height: 210px;
+  }
+
+  .ring-one {
+    width: 140px;
+    height: 140px;
+  }
+
+  .contact-orb-core {
+    width: 76px;
+    height: 76px;
+  }
+
+  .contact-terminal-body {
+    padding: 18px;
+    font-size: 0.78rem;
+  }
+
+  .contact-links {
+    padding: 20px;
+  }
+
+  .site-footer {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 20px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ring-one,
+  .ring-two,
+  .contact-terminal-status i {
+    animation: none;
+  }
+}

@@ -1,4 +1,5 @@
 const { GoogleGenAI } = require("@google/genai");
+const { findRepositories } = require("./githubService");
 
 const portfolioContext = `
 You are Ajeet AI, the personal AI assistant for Ajeet Gupta's portfolio.
@@ -96,6 +97,34 @@ async function askGemini(messages) {
     throw new Error("GEMINI_API_KEY is not configured");
   }
 
+  const latestUserMessage =
+    [...messages]
+      .reverse()
+      .find((message) => message.role === "user")
+      ?.content || "";
+
+  let githubKnowledge = [];
+
+  try {
+    githubKnowledge = await findRepositories(latestUserMessage);
+  } catch (error) {
+    console.error("GitHub lookup failed:", error.message);
+  }
+
+  const systemInstruction = `
+${portfolioContext}
+
+LIVE GITHUB DATA:
+
+${JSON.stringify(githubKnowledge, null, 2)}
+
+When GitHub data is available:
+- Use it to supplement portfolio information.
+- Do not invent repository statistics.
+- If GitHub data conflicts with manually provided portfolio data, prefer the more specific verified project information.
+- Never claim a repository exists unless the GitHub data or portfolio data confirms it.
+`;
+
   const ai = new GoogleGenAI({
     apiKey,
   });
@@ -110,12 +139,12 @@ async function askGemini(messages) {
   }));
 
   const response = await ai.models.generateContent({
-    model: "gemini-3.6-flash",
+    model: process.env.GEMINI_MODEL || "gemini-3.6-flash",
 
     contents: conversation,
 
     config: {
-      systemInstruction: portfolioContext,
+      systemInstruction,
 
       temperature: 0.5,
 

@@ -2,19 +2,32 @@
    SECTION SYSTEM
 ========================================= */
 
+section[id] {
+  scroll-margin-top: 85px;
+}
+
 .section-shell {
   position: relative;
   width: min(1380px, calc(100% - 10vw));
   margin: 0 auto;
-  padding: 130px 0;
+  padding: 55px 0 35px;
+}
+
+/* Sections that have their own outer container padding reset inner shell padding */
+.section .section-shell {
+  padding: 0;
+}
+
+.about-section {
+  padding: 55px 0 35px;
 }
 
 .section-heading {
   display: grid;
   grid-template-columns: 1fr 360px;
   align-items: end;
-  gap: 60px;
-  margin-bottom: 55px;
+  gap: 40px;
+  margin-bottom: 36px;
 }
 
 .section-number {
@@ -294,7 +307,16 @@
 @media (max-width: 900px) {
   .section-shell {
     width: min(100% - 40px, 700px);
-    padding: 90px 0;
+    padding: 40px 0 25px;
+  }
+
+  .section .section-shell {
+    padding: 0;
+  }
+
+  .about-section,
+  .workflow-section {
+    padding: 40px 0 25px;
   }
 
   .section-heading {
@@ -345,10 +367,6 @@
 /* =========================================
    PROJECTS
 ========================================= */
-
-.projects-section {
-  padding-top: 100px;
-}
 
 .projects-list {
   display: flex;
@@ -739,7 +757,7 @@
 ========================================= */
 
 .workflow-section {
-  padding-top: 100px;
+  padding: 55px 0 35px;
 }
 
 .workflow-layout {
@@ -752,11 +770,11 @@
 
 .workflow-intro {
   position: sticky;
-  top: 120px;
+  top: 100px;
 
   align-self: start;
 
-  min-height: 680px;
+  min-height: 540px;
   padding: 28px;
 
   border-radius: 26px;
@@ -764,7 +782,7 @@
 }
 
 .pipeline-terminal {
-  margin-top: 55px;
+  margin-top: 24px;
 
   overflow: hidden;
 

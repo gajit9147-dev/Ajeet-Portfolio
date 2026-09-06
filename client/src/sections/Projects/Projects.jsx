@@ -70,28 +70,49 @@ const projects = [
   },
 ];
 
-function ArchitecturePreview({ label }) {
+function ArchitecturePreview({ label, category }) {
+  const targetName =
+    label === "PROMPTWAR" ? "GEMINI" : label === "INNERVOICE" ? "MYSQL" : "API";
+  const appSub =
+    label === "PROMPTWAR" ? "AI EVAL" : label === "INNERVOICE" ? "CORE+DB" : "CLIENT";
+
   return (
     <div className="project-visual">
       <div className="visual-grid" />
+      <div className="visual-scanner" />
+      <div className="visual-radial-glow" />
 
       <div className="architecture-preview">
-        <div className="arch-node arch-user">USER</div>
+        <div className="arch-node arch-user">
+          <span>USER</span>
+        </div>
 
-        <div className="arch-line arch-line-one" />
+        <div className="arch-channel">
+          <div className="arch-line" />
+          <span className="data-packet packet-down" />
+        </div>
 
-        <div className="arch-node arch-app">APP</div>
+        <div className="arch-node arch-app">
+          <span>APP</span>
+          <small>{appSub}</small>
+        </div>
 
-        <div className="arch-line arch-line-two" />
+        <div className="arch-channel">
+          <div className="arch-line" />
+          <span className="data-packet packet-up" />
+        </div>
 
         <div className="arch-node arch-ai">
-          {label === "PROMPTWAR" ? "AI" : "SYSTEM"}
+          <span>{targetName}</span>
         </div>
       </div>
 
       <div className="visual-label">
         <span>SYS.{label}</span>
-        <i />
+        <span className="visual-ping">
+          <i />
+          <span>ACTIVE</span>
+        </span>
       </div>
     </div>
   );
@@ -102,7 +123,7 @@ function ProjectCard({ project }) {
     <article
       className={`project-card ${project.featured ? "project-featured" : ""}`}
     >
-      <ArchitecturePreview label={project.visual} />
+      <ArchitecturePreview label={project.visual} category={project.category} />
 
       <div className="project-content">
         <div className="project-topline">

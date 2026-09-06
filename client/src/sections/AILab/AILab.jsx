@@ -214,9 +214,9 @@ function AILab() {
               INTERFACE READY
             </span>
 
-            <button type="button" disabled>
-              DEEPSEEK CONNECTION
-              <span>SOON</span>
+            <button type="button">
+              GEMINI AI
+              <span>ONLINE</span>
             </button>
           </div>
         </div>
