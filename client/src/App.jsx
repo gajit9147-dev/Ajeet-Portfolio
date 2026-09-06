@@ -4,6 +4,7 @@ import About from "./sections/About/About";
 import Projects from "./sections/Projects/Projects";
 import Workflow from "./sections/Workflow/Workflow";
 import AILab from "./sections/AILab/AILab";
+import Skills from "./sections/Skills/Skills";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
         <Projects />
         <Workflow />
         <AILab />
+        <Skills />
       </main>
     </div>
   );
