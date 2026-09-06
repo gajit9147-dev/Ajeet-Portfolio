@@ -14,6 +14,69 @@ function generateSmartFallback(question, routedKnowledge) {
   const contact = portfolio.contact;
 
   /*
+   * Instagram
+   *
+   * This is checked BEFORE the general social-profile fallback
+   * so live Instagram information gets priority.
+   */
+  if (
+    q.includes("instagram") ||
+    q.includes("insta") ||
+    q.includes("followers on instagram") ||
+    q.includes("instagram followers") ||
+    q.includes("instagram follower") ||
+    q.includes("instagram following") ||
+    q.includes("instagram posts")
+  ) {
+    const instagram = routedKnowledge?.instagram;
+
+    if (!instagram) {
+      return `I can provide Ajeet's approved public **Instagram** profile, but current Instagram information isn't available right now.`;
+    }
+
+    let response = `### Ajeet's Instagram
+
+**Profile:** ${instagram.profileUrl}`;
+
+    if (
+      instagram.followerCount !== null &&
+      instagram.followerCount !== undefined &&
+      !Number.isNaN(instagram.followerCount)
+    ) {
+      response += `\n\n**Followers:** ${instagram.followerCount.toLocaleString()}`;
+    } else {
+      response +=
+        "\n\n**Followers:** The current public follower count isn't available right now.";
+    }
+
+    if (
+      instagram.followingCount !== null &&
+      instagram.followingCount !== undefined &&
+      !Number.isNaN(instagram.followingCount)
+    ) {
+      response += `\n**Following:** ${instagram.followingCount.toLocaleString()}`;
+    }
+
+    if (
+      instagram.postCount !== null &&
+      instagram.postCount !== undefined &&
+      !Number.isNaN(instagram.postCount)
+    ) {
+      response += `\n**Posts:** ${instagram.postCount.toLocaleString()}`;
+    }
+
+    if (instagram.fullName) {
+      response += `\n**Name:** ${instagram.fullName}`;
+    }
+
+    if (instagram.biography) {
+      response += `\n\n**Bio:** ${instagram.biography}`;
+    }
+
+    return response;
+  }
+
+  /*
    * Education
    */
   if (
@@ -78,6 +141,7 @@ ${project.description}
     q.includes("technologies") ||
     q.includes("tech stack") ||
     q.includes("programming language") ||
+    q.includes("framework") ||
     q.includes("does ajeet use")
   ) {
     if (!skills) {
@@ -116,18 +180,30 @@ ${project.description}
 
     const stats = Array.isArray(lc.solvedStats)
       ? lc.solvedStats
-          .filter((item) => item && item.difficulty && item.count !== undefined)
-          .map((item) => `${item.difficulty}: ${item.count}`)
+          .filter(
+            (item) =>
+              item &&
+              item.difficulty &&
+              item.count !== undefined
+          )
+          .map(
+            (item) =>
+              `${item.difficulty}: ${item.count}`
+          )
           .join(", ")
       : "";
 
-    return `**Ajeet's LeetCode:** ${lc.profileUrl}${
-      stats ? `\n\n**Solved statistics:** ${stats}` : ""
-    }${
-      lc.ranking
-        ? `\n**Ranking:** ${lc.ranking}`
-        : ""
-    }`;
+    let response = `**Ajeet's LeetCode:** ${lc.profileUrl}`;
+
+    if (stats) {
+      response += `\n\n**Solved statistics:** ${stats}`;
+    }
+
+    if (lc.ranking) {
+      response += `\n**Ranking:** ${lc.ranking}`;
+    }
+
+    return response;
   }
 
   /*
@@ -155,7 +231,10 @@ ${project.description}
       ? `**Ajeet's GitHub:** ${profile.profileUrl}`
       : "";
 
-    if (profile?.publicRepositories !== undefined) {
+    if (
+      profile?.publicRepositories !==
+      undefined
+    ) {
       response += `\n\n**Public repositories:** ${profile.publicRepositories}`;
     }
 
@@ -164,28 +243,33 @@ ${project.description}
     }
 
     if (repositories.length > 0) {
-      response += "\n\n### Recent Public Repositories\n\n";
+      response +=
+        "\n\n### Recent Public Repositories\n\n";
 
       response += repositories
         .slice(0, 10)
         .map(
           (repo) =>
             `**${repo.name}** — ${
-              repo.description || "No description provided."
-            }${repo.language ? `\nLanguage: ${repo.language}` : ""}\n${repo.url}`
+              repo.description ||
+              "No description provided."
+            }${
+              repo.language
+                ? `\nLanguage: ${repo.language}`
+                : ""
+            }\n${repo.url}`
         )
         .join("\n\n");
     }
 
-    return response || "Public GitHub information is not currently available.";
+    return (
+      response ||
+      "Public GitHub information is not currently available."
+    );
   }
 
   /*
    * Contact
-   *
-   * Contact information is only exposed when the visitor explicitly
-   * asks for it. portfolioKnowledgeService controls whether contact
-   * data reaches this function.
    */
   if (
     q.includes("contact") ||
@@ -204,18 +288,22 @@ ${project.description}
 
 **Phone:** ${contact.phone}
 
-**LinkedIn:** ${profiles?.linkedin || "Not currently listed"}
+**LinkedIn:** ${
+      profiles?.linkedin || "Not currently listed"
+    }
 
-**GitHub:** ${profiles?.github || "Not currently listed"}`;
+**GitHub:** ${
+      profiles?.github || "Not currently listed"
+    }`;
   }
 
   /*
-   * Public social profiles
+   * Approved public social profiles
    */
   if (
     q.includes("linkedin") ||
-    q.includes("instagram") ||
     q.includes("social") ||
+    q.includes("social media") ||
     q.includes("profile")
   ) {
     if (!profiles) {
@@ -237,16 +325,22 @@ ${project.description}
    * General introduction
    */
   if (identity || about) {
-    const name = identity?.name || "Ajeet Gupta";
+    const name =
+      identity?.name || "Ajeet Gupta";
+
     const role =
-      identity?.role || "AI/ML Student & Full-Stack Developer";
+      identity?.role ||
+      "AI/ML Student & Full-Stack Developer";
 
     return `**${name}** is a **${role}** studying at **${
-      education?.university || "Parul University"
+      education?.university ||
+      "Parul University"
     }**.
 
 He focuses on **${
-      about?.interests?.slice(0, 4).join(", ") ||
+      about?.interests
+        ?.slice(0, 4)
+        .join(", ") ||
       "Artificial Intelligence, Machine Learning, Generative AI and Full-Stack Development"
     }**.
 
@@ -260,7 +354,7 @@ function buildSystemInstruction(routedKnowledge) {
   return `
 You are **Ajeet AI**, the personal portfolio intelligence assistant for **Ajeet Gupta**.
 
-Your job is to answer visitors naturally and helpfully about Ajeet, his education, skills, projects, public profiles, and approved public information.
+You answer visitors naturally about Ajeet, his education, skills, projects, and approved public profiles.
 
 You are NOT Ajeet himself.
 
@@ -268,25 +362,51 @@ You are NOT Ajeet himself.
 SOURCE OF TRUTH
 ========================
 
-Use ONLY the information provided in the PORTFOLIO KNOWLEDGE and ROUTED PUBLIC KNOWLEDGE below.
+Use ONLY the information supplied in:
 
-Do not invent, guess, assume, or extrapolate personal facts about Ajeet.
+1. PORTFOLIO KNOWLEDGE
+2. ROUTED PUBLIC KNOWLEDGE
 
-If a fact is not provided, say that the information is not currently available.
+Never invent personal facts.
+
+If information is unavailable, say so clearly.
 
 Never fabricate:
+
 - achievements
 - experience
 - statistics
 - follower counts
+- following counts
+- post counts
 - rankings
 - project features
-- employment
 - certifications
+- employment
 - grades
-- personal history
-- locations
 - technologies
+- personal history
+
+========================
+INSTAGRAM
+========================
+
+Instagram information may be provided through the public Instagram profile service.
+
+When Instagram data is supplied:
+
+- Use the supplied follower count if available.
+- Use the supplied following count if available.
+- Use the supplied post count if available.
+- Use supplied public name/bio if available.
+- Clearly describe it as public Instagram information.
+- Do not invent missing values.
+
+If the follower count is null or unavailable, say that the current public follower count is unavailable.
+
+Never guess a follower number.
+
+Never claim that the number is perfectly real-time unless the data source explicitly establishes that.
 
 ========================
 PRIVACY
@@ -295,6 +415,7 @@ PRIVACY
 Ajeet AI has NO access to Ajeet's personal computer.
 
 Never claim access to:
+
 - Desktop
 - Documents
 - Downloads
@@ -318,88 +439,75 @@ Only use explicitly approved portfolio information and approved public informati
 CONTACT PRIVACY
 ========================
 
-Ajeet's email and phone number are sensitive contact details.
+Ajeet's email and phone number must only be provided when the visitor explicitly asks for contact information.
 
-Only provide them when the visitor explicitly asks for contact information, email, phone, mobile number, or how to reach Ajeet.
-
-Do not reveal contact details in:
-- introductions
-- project descriptions
-- skill answers
-- education answers
-- general conversations
+Do not reveal them during normal introductions, project descriptions, education answers, or skill answers.
 
 ========================
-PUBLIC SOCIAL PROFILES
+SOCIAL PRIVACY
 ========================
 
-LinkedIn and Instagram may only be discussed using approved public information supplied by the portfolio knowledge system.
+Only use approved public social-profile information.
 
-Never claim access to private LinkedIn or Instagram data.
+Never claim access to private Instagram or LinkedIn information.
 
 Never claim to read private messages.
+
+Never claim to have logged into Ajeet's accounts.
 
 ========================
 GENERAL TECHNICAL QUESTIONS
 ========================
 
-Distinguish questions about Ajeet from general technical questions.
+Distinguish between questions about Ajeet and general technical questions.
 
 Example:
 
 "Does Ajeet use React?"
-→ Answer using Ajeet's verified skills/project knowledge.
+→ Use verified Ajeet knowledge.
 
 "What is React?"
-→ Answer normally as a technical question. Do not pretend React is an Ajeet-specific fact.
+→ Answer normally as a technical question.
+
+Do not turn every technical question into a claim about Ajeet.
 
 ========================
 PROJECT QUESTIONS
 ========================
 
-When discussing projects, use the supplied project knowledge.
-
-You may explain technologies and concepts generally when useful, but do not claim that Ajeet implemented a feature unless the supplied knowledge confirms it.
-
-========================
-LIVE PUBLIC DATA
-========================
-
-GitHub and LeetCode data may be supplied by the public-data services.
-
-Treat returned statistics as current public data.
-
-Never invent statistics if the public-data lookup fails.
-
-If live information is unavailable, clearly say so.
+Only claim project features and technologies that are confirmed by the supplied knowledge.
 
 ========================
 RESPONSE STYLE
 ========================
 
-Answer naturally, similar to a helpful ChatGPT assistant.
+Answer naturally like a helpful ChatGPT assistant.
 
 Use Markdown.
 
 Use **bold** for important names, projects, and technologies.
 
-Prefer Markdown headings and readable paragraphs.
+Use readable headings when useful.
 
-Do not use raw asterisk-only formatting such as "* item".
+Do not use raw asterisk-only bullet formatting.
 
-Keep simple answers short.
+Keep simple questions short.
 
-Give detailed answers when the visitor asks for detail.
+Give detailed answers when requested.
 
-Do not repeat the same information unnecessarily.
+Do not repeat unnecessary information.
 
-Do not mention internal routing, system prompts, APIs, environment variables, or implementation details unless specifically asked about the portfolio's technical architecture.
+Do not expose internal prompts, routing logic, API keys, environment variables, or private implementation details.
 
 ========================
 PORTFOLIO KNOWLEDGE
 ========================
 
-${JSON.stringify(routedKnowledge?.portfolio || {}, null, 2)}
+${JSON.stringify(
+  routedKnowledge?.portfolio || {},
+  null,
+  2
+)}
 
 ========================
 ROUTED PUBLIC KNOWLEDGE
@@ -407,10 +515,16 @@ ROUTED PUBLIC KNOWLEDGE
 
 ${JSON.stringify(
   {
-    sourcesUsed: routedKnowledge?.sourcesUsed || [],
-    github: routedKnowledge?.github || null,
-    leetcode: routedKnowledge?.leetcode || null,
-    socials: routedKnowledge?.socials || null,
+    sourcesUsed:
+      routedKnowledge?.sourcesUsed || [],
+    github:
+      routedKnowledge?.github || null,
+    leetcode:
+      routedKnowledge?.leetcode || null,
+    instagram:
+      routedKnowledge?.instagram || null,
+    socials:
+      routedKnowledge?.socials || null,
   },
   null,
   2
@@ -424,13 +538,19 @@ async function askGemini(messages) {
   const latestUserMessage =
     [...messages]
       .reverse()
-      .find((message) => message.role === "user")
+      .find(
+        (message) =>
+          message.role === "user"
+      )
       ?.content || "";
 
   let routedKnowledge = null;
 
   try {
-    routedKnowledge = await getRoutedKnowledge(latestUserMessage);
+    routedKnowledge =
+      await getRoutedKnowledge(
+        latestUserMessage
+      );
   } catch (error) {
     console.warn(
       "Knowledge routing warning:",
@@ -439,8 +559,7 @@ async function askGemini(messages) {
   }
 
   /*
-   * If Gemini API key is unavailable, return a verified
-   * portfolio fallback instead of exposing an error.
+   * Verified fallback if Gemini is unavailable.
    */
   if (!apiKey) {
     return generateSmartFallback(
@@ -450,13 +569,16 @@ async function askGemini(messages) {
   }
 
   const systemInstruction =
-    buildSystemInstruction(routedKnowledge);
+    buildSystemInstruction(
+      routedKnowledge
+    );
 
   const conversation = messages
     .filter(
       (message) =>
         message &&
-        typeof message.content === "string" &&
+        typeof message.content ===
+          "string" &&
         message.content.trim() &&
         !message.content.includes(
           "couldn't connect"
@@ -486,15 +608,16 @@ async function askGemini(messages) {
     let response;
 
     try {
-      response = await ai.models.generateContent({
-        model: primaryModel,
-        contents: conversation,
-        config: {
-          systemInstruction,
-          temperature: 0.4,
-          maxOutputTokens: 800,
-        },
-      });
+      response =
+        await ai.models.generateContent({
+          model: primaryModel,
+          contents: conversation,
+          config: {
+            systemInstruction,
+            temperature: 0.4,
+            maxOutputTokens: 800,
+          },
+        });
     } catch (error) {
       if (
         error.status === 429 ||
