@@ -1,4 +1,5 @@
 import { useState } from "react";
+import ReactMarkdown from "react-markdown";
 import "./AIAssistant.css";
 
 const suggestedQuestions = [
@@ -157,7 +158,11 @@ function AIAssistant() {
                   {message.role === "assistant" ? "AI" : "YOU"}
                 </span>
 
-                <p>{message.content}</p>
+                <div className="ai-message-content">
+                  <ReactMarkdown>
+                    {message.content}
+                  </ReactMarkdown>
+                </div>
               </div>
             ))}
 
