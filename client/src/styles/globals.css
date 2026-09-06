@@ -17,7 +17,9 @@
 
   --blue: #6ea8ff;
   --cyan: #61e8ff;
+  --accent-cyan: #61e8ff;
   --violet: #9c7cff;
+  --text-dim: #7a8499;
 
   --glass-bg: rgba(255, 255, 255, 0.055);
   --glass-border: rgba(255, 255, 255, 0.12);
