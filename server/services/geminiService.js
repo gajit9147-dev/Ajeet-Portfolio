@@ -107,16 +107,44 @@ function generateSmartFallback(question, routedKnowledge) {
     q.includes("promptwar") ||
     q.includes("prompt war") ||
     q.includes("laundry") ||
-    q.includes("interior design")
+    q.includes("interior design") ||
+    q.includes("where can i try") ||
+    q.includes("where can i see") ||
+    q.includes("live demo") ||
+    q.includes("demo")
   ) {
     if (!projects || !Array.isArray(projects)) {
       return "Project information is not currently available.";
     }
 
+    /*
+     * If routing selected a specific project,
+     * return only that project.
+     */
+    if (projects.length === 1) {
+      const project = projects[0];
+
+      const liveDemo = project.live
+        ? `\n**Live:** [${project.live}](${project.live})`
+        : "";
+
+      return `### ${project.name}
+
+${project.description}
+
+**Technologies:** ${project.technologies.join(", ")}${liveDemo}
+
+**GitHub:** [${project.github}](${project.github})`;
+    }
+
+    /*
+     * Only show multiple projects when the question
+     * genuinely asks for multiple projects.
+     */
     return projects
       .map((project) => {
         const liveDemo = project.live
-          ? `\n**Live:** ${project.live}`
+          ? `\n**Live:** [${project.live}](${project.live})`
           : "";
 
         return `### ${project.name}
@@ -125,7 +153,7 @@ ${project.description}
 
 **Technologies:** ${project.technologies.join(", ")}${liveDemo}
 
-**GitHub:** ${project.github}`;
+**GitHub:** [${project.github}](${project.github})`;
       })
       .join("\n\n");
   }
