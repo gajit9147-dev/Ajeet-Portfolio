@@ -10,7 +10,7 @@ app.listen(PORT, () => {
 ║       AJEET PORTFOLIO SERVER        ║
 ╠══════════════════════════════════════╣
 ║ API:    http://localhost:${PORT}       ║
-║ AI:     Gemini 2.5 Flash             ║
+║ AI:     Gemini 3.6 Flash             ║
 ║ STATUS: ONLINE                       ║
 ╚══════════════════════════════════════╝
 `);
