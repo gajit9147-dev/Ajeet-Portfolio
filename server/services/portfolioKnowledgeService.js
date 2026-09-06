@@ -244,6 +244,7 @@ function getKnowledge(question = "") {
    */
   if (wantsContact) {
     knowledge.contact = ajeetProfile.contact;
+    knowledge.profiles = ajeetProfile.profiles;
   }
 
   /*

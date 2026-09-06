@@ -289,12 +289,16 @@ ${project.description}
 **Phone:** [${contact.phone}](tel:${contact.phone})
 
 **LinkedIn:** ${
-      profiles?.linkedin ? `[${profiles.linkedin}](${profiles.linkedin})` : "Not currently listed"
-    }
+  profiles?.linkedin
+    ? `[LinkedIn Profile](${profiles.linkedin})`
+    : "Not currently listed"
+}
 
 **GitHub:** ${
-      profiles?.github ? `[${profiles.github}](${profiles.github})` : "Not currently listed"
-    }`;
+  profiles?.github
+    ? `[GitHub Profile](${profiles.github})`
+    : "Not currently listed"
+}`;
   }
 
   /*
