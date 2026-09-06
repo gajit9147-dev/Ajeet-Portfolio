@@ -3,6 +3,7 @@ import Hero from "./sections/Hero/Hero";
 import About from "./sections/About/About";
 import Projects from "./sections/Projects/Projects";
 import Workflow from "./sections/Workflow/Workflow";
+import AILab from "./sections/AILab/AILab";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
         <About />
         <Projects />
         <Workflow />
+        <AILab />
       </main>
     </div>
   );
