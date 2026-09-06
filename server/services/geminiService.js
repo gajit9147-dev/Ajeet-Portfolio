@@ -596,21 +596,24 @@ async function askGemini(messages) {
       ],
     }));
 
-  const ai = new GoogleGenAI({
-    apiKey,
-  });
-
-  const primaryModel =
-    process.env.GEMINI_MODEL ||
-    "gemini-3.5-flash";
-
   try {
-    let response;
+    const ai = new GoogleGenAI({
+      apiKey,
+    });
 
-    try {
-      response =
-        await ai.models.generateContent({
-          model: primaryModel,
+    const candidateModels = [
+      process.env.GEMINI_MODEL,
+      "gemini-3.5-flash-lite",
+      "gemini-3.7-flash",
+      "gemini-flash-latest",
+      "gemini-3.1-flash-lite",
+      "gemini-3.8-flash",
+    ].filter(Boolean);
+
+    for (const model of candidateModels) {
+      try {
+        const response = await ai.models.generateContent({
+          model,
           contents: conversation,
           config: {
             systemInstruction,
@@ -618,47 +621,25 @@ async function askGemini(messages) {
             maxOutputTokens: 800,
           },
         });
-    } catch (error) {
-      if (
-        error.status === 429 ||
-        error.status === 404
-      ) {
-        console.warn(
-          "Primary Gemini model unavailable. Retrying with fallback model."
-        );
 
-        response =
-          await ai.models.generateContent({
-            model: "gemini-3.5-flash",
-            contents: conversation,
-            config: {
-              systemInstruction,
-              temperature: 0.4,
-              maxOutputTokens: 800,
-            },
-          });
-      } else {
-        throw error;
+        if (response && response.text) {
+          return response.text;
+        }
+      } catch (error) {
+        if (error.status === 429 || error.status === 404) {
+          console.warn(
+            `Gemini model ${model} unavailable (${error.status}). Falling back to next available model...`
+          );
+          continue;
+        }
+        console.warn(`Gemini model ${model} error:`, error.message);
       }
     }
 
-    return (
-      response.text ||
-      generateSmartFallback(
-        latestUserMessage,
-        routedKnowledge
-      )
-    );
+    // If all models hit quota or are unavailable, serve instant verified portfolio fallback
+    return generateSmartFallback(latestUserMessage, routedKnowledge);
   } catch (error) {
-    console.error(
-      "Gemini request failed. Serving verified portfolio fallback:",
-      error.message
-    );
-
-    return generateSmartFallback(
-      latestUserMessage,
-      routedKnowledge
-    );
+    return generateSmartFallback(latestUserMessage, routedKnowledge);
   }
 }
 
