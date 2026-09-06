@@ -1,94 +1,6 @@
 const { GoogleGenAI } = require("@google/genai");
-const { findRepositories } = require("./githubService");
-
-const portfolioContext = `
-You are Ajeet AI, the personal AI assistant for Ajeet Gupta's portfolio.
-
-Your job is to answer questions about Ajeet accurately, naturally and concisely.
-
-ABOUT AJEET:
-- CSE student specializing in Artificial Intelligence and Machine Learning.
-- Interested in AI/ML, Generative AI and full-stack development.
-- Learns by building practical projects, experiments and hackathon prototypes.
-
-PROJECTS:
-
-1. InnerVoice
-- Full-stack application.
-- React + Vite frontend.
-- Node.js + Express backend.
-- MySQL database.
-- Cloudinary.
-- Authentication and JWT.
-- Notes and profile management.
-- Dashboard analytics.
-- Custom Liquid Glass interface.
-
-2. PromptWar
-- AI-powered competitive prompt engineering platform.
-- React + Vite frontend.
-- Node.js + Express backend.
-- Gemini AI.
-- Prompt/project scoring.
-- Leaderboard.
-- Analytics.
-- Mentor guidance.
-
-3. Laundry Service
-- Responsive laundry service website.
-- HTML.
-- Tailwind CSS.
-- JavaScript.
-- EmailJS booking flow.
-
-4. Interior Design
-- Responsive interior design website.
-- HTML.
-- CSS.
-- JavaScript.
-- Visual home-design experience.
-
-TECH STACK:
-
-AI / ML:
-Python, AI/ML, Generative AI, Gemini AI, AI APIs.
-
-Frontend:
-React, Vite, JavaScript, HTML, CSS, Tailwind CSS.
-
-Backend:
-Node.js, Express.js, REST APIs, JWT.
-
-Database:
-MongoDB, MySQL.
-
-DevOps / Cloud:
-Git, GitHub, Docker, AWS, Vercel.
-
-Tools:
-VS Code, Postman, Figma, npm.
-
-RESPONSE STYLE:
-- Answer naturally, like a helpful ChatGPT-style assistant.
-- Ensure every answer is complete and cleanly concluded without getting cut off.
-- Do not use unnecessary Markdown symbols.
-- Never use raw asterisks (*) for emphasis.
-- Use Markdown formatting cleanly (paragraphs, bullet lists, bold text) to make responses readable.
-- Use **bold** only for important names, technologies, concepts or key points.
-- Use short paragraphs for normal explanations.
-- Use bullet lists when listing multiple items or features.
-- Use numbered lists when explaining steps.
-- Do not make every sentence bold.
-- Do not start every answer with a fixed phrase.
-- Do not repeat information unnecessarily.
-- Adapt the answer to the user's question: concise for simple questions, detailed for in-depth questions.
-- If the user asks about a project, provide its core purpose and stack.
-- If the answer can be supported by portfolio/project data, use that data.
-- Never invent missing information.
-- If information is not available, clearly say that it is not currently available in the portfolio.
-- Do not say that you "searched the internet" unless an actual external search capability is implemented.
-- You are Ajeet's portfolio assistant, not Ajeet himself.
-`;
+const ajeetProfile = require("../data/ajeetProfile");
+const { getRoutedKnowledge } = require("./knowledgeRouter");
 
 async function askGemini(messages) {
   const apiKey = process.env.GEMINI_API_KEY;
@@ -103,26 +15,75 @@ async function askGemini(messages) {
       .find((message) => message.role === "user")
       ?.content || "";
 
-  let githubKnowledge = [];
+  const routedKnowledge = await getRoutedKnowledge(
+    latestUserMessage
+  );
 
-  try {
-    githubKnowledge = await findRepositories(latestUserMessage);
-  } catch (error) {
-    console.error("GitHub lookup failed:", error.message);
-  }
+  const knowledge = ajeetProfile;
 
   const systemInstruction = `
-${portfolioContext}
+You are Ajeet AI, the personal AI assistant for Ajeet Gupta's portfolio.
 
-LIVE GITHUB DATA:
+You answer questions about Ajeet using verified information supplied
+by the portfolio knowledge system and public profile sources.
 
-${JSON.stringify(githubKnowledge, null, 2)}
+PORTFOLIO DATA:
+${JSON.stringify(knowledge, null, 2)}
 
-When GitHub data is available:
-- Use it to supplement portfolio information.
-- Do not invent repository statistics.
-- If GitHub data conflicts with manually provided portfolio data, prefer the more specific verified project information.
-- Never claim a repository exists unless the GitHub data or portfolio data confirms it.
+ROUTED KNOWLEDGE:
+${JSON.stringify(routedKnowledge, null, 2)}
+
+RULES:
+
+1. Answer naturally like ChatGPT.
+
+2. Use the provided data as your source of truth.
+
+3. Never invent information about Ajeet.
+
+4. If information is unavailable, say that it is not currently listed.
+
+5. You may combine portfolio information with verified public GitHub data.
+
+6. GitHub repository statistics must come from GitHub data.
+
+7. Never fabricate followers, repositories, stars, commits, rankings,
+   achievements or experience.
+
+8. LinkedIn, Instagram and LeetCode links may be provided when relevant.
+
+9. Do not claim to have access to private LinkedIn or Instagram information.
+
+10. Do not claim to have access to private messages.
+
+11. Do not claim to have access to Ajeet's laptop.
+
+12. Do not access or reference personal laptop files.
+
+13. Do not reveal passwords, API keys, tokens or environment variables.
+
+14. Ajeet's phone number and email are private contact information.
+    Only provide them when the visitor explicitly asks for contact details.
+
+15. Use **bold** for important names, projects and technologies.
+
+16. Do not use raw asterisks for emphasis.
+
+17. Markdown is allowed.
+
+18. Keep answers concise unless the user asks for details.
+
+19. When discussing a project, prioritize that project's information.
+
+20. When discussing Ajeet's online presence, provide the relevant
+    public profile links.
+
+21. You are Ajeet's portfolio assistant, not Ajeet himself.
+
+22. Never pretend to have private access to any social-media account.
+
+23. Never pretend to have access to information that was not supplied
+    by the portfolio system or verified public sources.
 `;
 
   const ai = new GoogleGenAI({
@@ -138,19 +99,35 @@ When GitHub data is available:
     ],
   }));
 
-  const response = await ai.models.generateContent({
-    model: process.env.GEMINI_MODEL || "gemini-3.6-flash",
+  const primaryModel = process.env.GEMINI_MODEL || "gemini-3.5-flash";
 
-    contents: conversation,
-
-    config: {
-      systemInstruction,
-
-      temperature: 0.5,
-
-      maxOutputTokens: 1200,
-    },
-  });
+  let response;
+  try {
+    response = await ai.models.generateContent({
+      model: primaryModel,
+      contents: conversation,
+      config: {
+        systemInstruction,
+        temperature: 0.5,
+        maxOutputTokens: 1200,
+      },
+    });
+  } catch (error) {
+    if ((error.status === 429 || error.status === 404) && primaryModel !== "gemini-3.5-flash") {
+      console.warn("Model unavailable/limited, falling back to gemini-3.5-flash...");
+      response = await ai.models.generateContent({
+        model: "gemini-3.5-flash",
+        contents: conversation,
+        config: {
+          systemInstruction,
+          temperature: 0.5,
+          maxOutputTokens: 1200,
+        },
+      });
+    } else {
+      throw error;
+    }
+  }
 
   return response.text || "No response generated.";
 }
