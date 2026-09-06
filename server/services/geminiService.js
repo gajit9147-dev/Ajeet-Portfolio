@@ -604,13 +604,16 @@ async function askGemini(messages) {
     const candidateModels = [
       process.env.GEMINI_MODEL,
       "gemini-3.5-flash-lite",
-      "gemini-3.7-flash",
-      "gemini-flash-latest",
       "gemini-3.1-flash-lite",
+      "gemini-3.7-flash",
       "gemini-3.8-flash",
+      "gemini-flash-lite-latest",
+      "gemini-flash-latest",
     ].filter(Boolean);
 
-    for (const model of candidateModels) {
+    const uniqueModels = [...new Set(candidateModels)];
+
+    for (const model of uniqueModels) {
       try {
         const response = await ai.models.generateContent({
           model,
@@ -628,7 +631,7 @@ async function askGemini(messages) {
       } catch (error) {
         if (error.status === 429 || error.status === 404) {
           console.warn(
-            `Gemini model ${model} unavailable (${error.status}). Falling back to next available model...`
+            `[Rate Limit] Model ${model} reached limit (${error.status}). Auto-switching to next available model...`
           );
           continue;
         }
