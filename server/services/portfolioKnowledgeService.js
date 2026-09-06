@@ -1,207 +1,135 @@
 const ajeetProfile = require("../data/ajeetProfile");
 
-function normalize(text = "") {
-  return text.toLowerCase().trim();
-}
-
-function includesAny(query, words) {
-  return words.some((word) => query.includes(word));
+function normalizeQuestion(question = "") {
+  return String(question).trim().toLowerCase();
 }
 
 function getKnowledge(question = "") {
-  const query = normalize(question);
+  const q = normalizeQuestion(question);
+
+  const wantsContact =
+    q.includes("contact") ||
+    q.includes("email") ||
+    q.includes("mail") ||
+    q.includes("phone") ||
+    q.includes("mobile") ||
+    q.includes("reach");
+
+  const wantsEducation =
+    q.includes("study") ||
+    q.includes("studying") ||
+    q.includes("university") ||
+    q.includes("college") ||
+    q.includes("education") ||
+    q.includes("semester") ||
+    q.includes("course") ||
+    q.includes("degree") ||
+    q.includes("branch") ||
+    q.includes("specialization");
+
+  const wantsSkills =
+    q.includes("skill") ||
+    q.includes("skills") ||
+    q.includes("tech stack") ||
+    q.includes("technologies") ||
+    q.includes("technology") ||
+    q.includes("what does ajeet use") ||
+    q.includes("programming language");
+
+  const wantsProjects =
+    q.includes("project") ||
+    q.includes("projects") ||
+    q.includes("built") ||
+    q.includes("developed") ||
+    q.includes("created");
+
+  const projectKeywords = [
+    "innervoice",
+    "inner voice",
+    "promptwar",
+    "prompt war",
+    "laundry service",
+    "laundry",
+    "interior design",
+    "interior"
+  ];
+
+  const requestedProject = projectKeywords.find((project) =>
+    q.includes(project)
+  );
+
+  const wantsCurrentFocus =
+    q.includes("learning") ||
+    q.includes("learn") ||
+    q.includes("currently") ||
+    q.includes("working on") ||
+    q.includes("focus") ||
+    q.includes("goal") ||
+    q.includes("future");
 
   const knowledge = {
-    identity: null,
-    education: null,
-    about: null,
-    skills: null,
-    projects: null,
-    currentFocus: null,
-    goals: null,
-    profiles: null,
-    contact: null,
+    identity: {
+      name: ajeetProfile.identity?.name,
+      role: ajeetProfile.identity?.role
+    }
   };
 
-  /*
-   * Identity / introduction questions
-   */
-  if (
-    includesAny(query, [
-      "who is ajeet",
-      "who's ajeet",
-      "tell me about ajeet",
-      "about ajeet",
-      "introduce ajeet",
-      "introduction",
-    ])
-  ) {
-    knowledge.identity = ajeetProfile.identity;
-    knowledge.about = ajeetProfile.about;
+  if (wantsEducation) {
     knowledge.education = ajeetProfile.education;
+  }
+
+  if (wantsSkills) {
     knowledge.skills = ajeetProfile.skills;
-    knowledge.projects = ajeetProfile.projects;
   }
 
-  /*
-   * Education questions
-   */
-  if (
-    includesAny(query, [
-      "education",
-      "university",
-      "college",
-      "study",
-      "studies",
-      "semester",
-      "degree",
-      "course",
-      "program",
-      "specialization",
-      "where does ajeet study",
-      "where is ajeet studying",
-    ])
-  ) {
-    knowledge.education = ajeetProfile.education;
-  }
-
-  /*
-   * About / interests questions
-   */
-  if (
-    includesAny(query, [
-      "about",
-      "interest",
-      "interests",
-      "learning",
-      "learn",
-      "focus",
-      "currently working",
-      "what is ajeet learning",
-    ])
-  ) {
-    knowledge.identity = ajeetProfile.identity;
-    knowledge.about = ajeetProfile.about;
+  if (wantsCurrentFocus) {
     knowledge.currentFocus = ajeetProfile.currentFocus;
     knowledge.goals = ajeetProfile.goals;
   }
 
-  /*
-   * Skills / technology questions
-   */
-  if (
-    includesAny(query, [
-      "skill",
-      "skills",
-      "tech stack",
-      "technology",
-      "technologies",
-      "technical",
-      "programming language",
-      "framework",
-      "tools",
-      "what technologies",
-      "what tech",
-      "does ajeet use react",
-      "does ajeet use",
-    ])
-  ) {
-    knowledge.skills = ajeetProfile.skills;
-  }
+  if (requestedProject) {
+    const projects = Array.isArray(ajeetProfile.projects)
+      ? ajeetProfile.projects
+      : [];
 
-  /*
-   * Project questions
-   */
-  if (
-    includesAny(query, [
-      "project",
-      "projects",
-      "built",
-      "build",
-      "developed",
-      "development",
-      "work",
-      "portfolio project",
-      "innervoice",
-      "promptwar",
-      "prompt war",
-      "laundry",
-      "interior design",
-    ])
-  ) {
+    const matchedProject = projects.find((project) => {
+      const name = String(project.name || "").toLowerCase();
+
+      return (
+        name.includes(requestedProject) ||
+        requestedProject.includes(name) ||
+        (requestedProject.includes("inner") && name.includes("inner")) ||
+        (requestedProject.includes("prompt") && name.includes("prompt")) ||
+        (requestedProject.includes("laundry") && name.includes("laundry")) ||
+        (requestedProject.includes("interior") && name.includes("interior"))
+      );
+    });
+
+    if (matchedProject) {
+      knowledge.projects = [matchedProject];
+    }
+  } else if (wantsProjects) {
     knowledge.projects = ajeetProfile.projects;
   }
 
-  /*
-   * Public profile questions.
-   *
-   * These contain only the approved public profile URLs.
-   * Dynamic GitHub/LeetCode information is handled separately
-   * by knowledgeRouter/profileService.
-   */
-  if (
-    includesAny(query, [
-      "github",
-      "linkedin",
-      "instagram",
-      "social",
-      "social media",
-      "profile",
-      "profiles",
-    ])
-  ) {
-    knowledge.profiles = ajeetProfile.profiles;
-  }
-
-  /*
-   * Contact information is deliberately NOT included merely because
-   * the question mentions Ajeet.
-   *
-   * It is only exposed when the visitor explicitly asks for contact
-   * information, email, phone, or how to reach Ajeet.
-   */
-  if (
-    includesAny(query, [
-      "contact",
-      "contact information",
-      "contact details",
-      "email",
-      "email address",
-      "phone",
-      "phone number",
-      "mobile",
-      "mobile number",
-      "how can i contact",
-      "how do i contact",
-      "how can i reach",
-      "how do i reach",
-      "reach ajeet",
-    ])
-  ) {
+  if (wantsContact) {
     knowledge.contact = ajeetProfile.contact;
-    knowledge.profiles = ajeetProfile.profiles;
   }
 
-  /*
-   * If nothing matched, provide only safe general identity information.
-   * This prevents the entire profile from being sent to Gemini for
-   * unrelated questions.
-   */
-  const hasKnowledge = Object.values(knowledge).some(
-    (value) => value !== null
-  );
-
-  if (!hasKnowledge) {
-    knowledge.identity = ajeetProfile.identity;
-    knowledge.about = {
-      summary: ajeetProfile.about.summary,
-      interests: ajeetProfile.about.interests,
-    };
+  if (
+    !wantsEducation &&
+    !wantsSkills &&
+    !wantsCurrentFocus &&
+    !requestedProject &&
+    !wantsProjects &&
+    !wantsContact
+  ) {
+    knowledge.about = ajeetProfile.about;
   }
 
   return knowledge;
 }
 
 module.exports = {
-  getKnowledge,
+  getKnowledge
 };
