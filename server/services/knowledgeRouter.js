@@ -1,9 +1,14 @@
 const { getKnowledge } = require("./portfolioKnowledgeService");
+
 const {
   fetchGitHubProfile,
   fetchGitHubRepositories,
   fetchLeetCodeProfile,
 } = require("./profileService");
+
+const {
+  fetchInstagramProfile,
+} = require("./instagramService");
 
 function normalize(text = "") {
   return text.toLowerCase().trim();
@@ -53,10 +58,27 @@ function needsLeetCode(query) {
   ]);
 }
 
+function needsInstagram(query) {
+  return includesAny(query, [
+    "instagram",
+    "insta",
+    "instagram profile",
+    "instagram followers",
+    "instagram follower",
+    "instagram following",
+    "instagram posts",
+    "instagram bio",
+    "instagram stats",
+    "how many followers",
+    "how many instagram followers",
+    "followers on instagram",
+    "following on instagram",
+  ]);
+}
+
 function needsSocialProfiles(query) {
   return includesAny(query, [
     "linkedin",
-    "instagram",
     "social",
     "social media",
     "social profile",
@@ -75,6 +97,7 @@ async function getRoutedKnowledge(question = "") {
     sourcesUsed: ["portfolio"],
     github: null,
     leetcode: null,
+    instagram: null,
     socials: null,
   };
 
@@ -82,9 +105,6 @@ async function getRoutedKnowledge(question = "") {
 
   /*
    * GitHub
-   *
-   * Only fetch public GitHub information when the question
-   * actually requires GitHub knowledge.
    */
   if (needsGitHub(query)) {
     tasks.push(
@@ -111,14 +131,13 @@ async function getRoutedKnowledge(question = "") {
 
   /*
    * LeetCode
-   *
-   * Only fetch public LeetCode information when required.
    */
   if (needsLeetCode(query)) {
     tasks.push(
       fetchLeetCodeProfile()
         .then((data) => {
           knowledge.leetcode = data;
+
           knowledge.sourcesUsed.push("leetcode");
         })
         .catch((error) => {
@@ -131,26 +150,48 @@ async function getRoutedKnowledge(question = "") {
   }
 
   /*
-   * LinkedIn / Instagram / public profiles
+   * Instagram
    *
-   * At this stage we only provide the explicitly approved public
-   * profile information stored in ajeetProfile.
+   * Only public Instagram profile information is requested.
    *
-   * We do NOT access:
-   * - private accounts
-   * - private messages
-   * - browser sessions
-   * - cookies
-   * - personal accounts
+   * No login.
+   * No cookies.
+   * No private messages.
+   * No private account access.
    */
-  if (needsSocialProfiles(query)) {
-    knowledge.socials = knowledge.portfolio?.profiles || null;
+  if (needsInstagram(query)) {
+    tasks.push(
+      fetchInstagramProfile()
+        .then((data) => {
+          knowledge.instagram = data;
 
-    knowledge.sourcesUsed.push("approved public profiles");
+          knowledge.sourcesUsed.push(
+            "instagram public profile"
+          );
+        })
+        .catch((error) => {
+          console.error(
+            "Knowledge Router Instagram error:",
+            error.message
+          );
+        })
+    );
   }
 
   /*
-   * Execute dynamic public-data requests in parallel.
+   * Other approved public social profiles
+   */
+  if (needsSocialProfiles(query)) {
+    knowledge.socials =
+      knowledge.portfolio?.profiles || null;
+
+    knowledge.sourcesUsed.push(
+      "approved public profiles"
+    );
+  }
+
+  /*
+   * Run all required public-data lookups in parallel.
    */
   if (tasks.length > 0) {
     await Promise.all(tasks);
