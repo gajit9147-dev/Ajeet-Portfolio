@@ -218,10 +218,10 @@
   color: var(--text-dim);
 }
 
-.ai-message p {
+.ai-message-content {
   display: inline-block;
+  max-width: 100%;
 
-  margin: 0;
   padding: 12px 14px;
 
   border: 1px solid rgba(255, 255, 255, 0.08);
@@ -232,13 +232,83 @@
   color: var(--text-muted);
 
   font-size: 0.78rem;
-  line-height: 1.7;
+  line-height: 1.65;
   text-align: left;
+  word-break: break-word;
 }
 
-.ai-message.user p {
+.ai-message.user .ai-message-content {
   background: rgba(120, 220, 255, 0.07);
   border-color: rgba(120, 220, 255, 0.14);
+  color: var(--text-primary);
+}
+
+.ai-message-content p {
+  margin: 0 0 10px 0;
+  line-height: 1.65;
+}
+
+.ai-message-content p:last-child {
+  margin-bottom: 0;
+}
+
+.ai-message-content strong,
+.ai-message-content b {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.ai-message-content ul,
+.ai-message-content ol {
+  margin: 8px 0 10px 0;
+  padding-left: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.ai-message-content ul:last-child,
+.ai-message-content ol:last-child {
+  margin-bottom: 0;
+}
+
+.ai-message-content li {
+  line-height: 1.6;
+}
+
+.ai-message-content code {
+  background: rgba(120, 220, 255, 0.08);
+  border: 1px solid rgba(120, 220, 255, 0.15);
+  border-radius: 4px;
+  padding: 2px 6px;
+  font-family: "DM Mono", monospace;
+  font-size: 0.72rem;
+  color: var(--accent-cyan);
+}
+
+.ai-message-content pre {
+  margin: 10px 0;
+  padding: 10px 12px;
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  overflow-x: auto;
+}
+
+.ai-message-content pre code {
+  background: transparent;
+  border: none;
+  padding: 0;
+}
+
+.ai-message-content a {
+  color: var(--accent-cyan);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.ai-message-content a:hover {
+  color: #fff;
 }
 
 .ai-suggestions {
@@ -448,8 +518,9 @@
   animation-delay: 0.3s;
 }
 
-.ai-message.has-error p {
-  border-color: rgba(255, 120, 120, 0.15);
+.ai-message.has-error .ai-message-content {
+  border-color: rgba(255, 120, 120, 0.25);
+  background: rgba(255, 120, 120, 0.05);
 }
 
 @keyframes aiTyping {
