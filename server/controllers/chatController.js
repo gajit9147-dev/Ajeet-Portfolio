@@ -1,4 +1,4 @@
-const { askGemini } = require("../services/deepseekService");
+const { askGemini } = require("../services/geminiService");
 
 async function chatController(req, res) {
   try {
