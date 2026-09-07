@@ -32,7 +32,10 @@ function getGitHubHeaders() {
 
 async function fetchGitHubProfile() {
   const now = Date.now();
-  if (profileCache.githubProfile && now - profileCache.githubProfileTime < CACHE_TTL_MS) {
+  if (
+    profileCache.githubProfile &&
+    now - profileCache.githubProfileTime < CACHE_TTL_MS
+  ) {
     return profileCache.githubProfile;
   }
 
@@ -79,7 +82,10 @@ async function fetchGitHubProfile() {
 
 async function fetchGitHubRepositories() {
   const now = Date.now();
-  if (profileCache.githubRepos && now - profileCache.githubReposTime < CACHE_TTL_MS) {
+  if (
+    profileCache.githubRepos &&
+    now - profileCache.githubReposTime < CACHE_TTL_MS
+  ) {
     return profileCache.githubRepos;
   }
 
@@ -103,7 +109,6 @@ async function fetchGitHubRepositories() {
 
     const repositories = await response.json();
 
-    // Map and keep only top 10 relevant non-fork or active repositories to keep prompt small & fast
     const mapped = (Array.isArray(repositories) ? repositories : [])
       .filter((repo) => !repo.fork || repo.stargazers_count > 0)
       .slice(0, 10)
@@ -130,21 +135,31 @@ async function fetchGitHubRepositories() {
 
 async function fetchLeetCodeProfile() {
   const now = Date.now();
-  if (profileCache.leetcodeProfile && now - profileCache.leetcodeProfileTime < CACHE_TTL_MS) {
+
+  if (
+    profileCache.leetcodeProfile &&
+    now - profileCache.leetcodeProfileTime < CACHE_TTL_MS
+  ) {
     return profileCache.leetcodeProfile;
   }
 
   try {
-    // 3.5s timeout for LeetCode query
-    const timeoutPromise = new Promise((_, reject) =>
-      setTimeout(() => reject(new Error("LeetCode query timeout")), 3500)
-    );
+    const timeoutPromise = new Promise((_, reject) => {
+      setTimeout(() => reject(new Error("LeetCode query timeout")), 3500);
+    });
 
-    const userPromise = leetcode.user(LEETCODE_USERNAME);
+    const userPromise = Promise.resolve()
+      .then(() => leetcode.user(LEETCODE_USERNAME))
+      .catch((error) => {
+        throw new Error(`LeetCode network request failed: ${error.message}`);
+      });
+
     const user = await Promise.race([userPromise, timeoutPromise]);
 
     if (!user) {
-      if (profileCache.leetcodeProfile) return profileCache.leetcodeProfile;
+      if (profileCache.leetcodeProfile) {
+        return profileCache.leetcodeProfile;
+      }
       return null;
     }
 
@@ -158,10 +173,13 @@ async function fetchLeetCodeProfile() {
 
     profileCache.leetcodeProfile = profileData;
     profileCache.leetcodeProfileTime = now;
+
     return profileData;
   } catch (error) {
-    if (profileCache.leetcodeProfile) return profileCache.leetcodeProfile;
-    console.error("LeetCode lookup failed:", error.message);
+    if (profileCache.leetcodeProfile) {
+      return profileCache.leetcodeProfile;
+    }
+    console.warn("LeetCode public data unavailable:", error.message);
     return null;
   }
 }
