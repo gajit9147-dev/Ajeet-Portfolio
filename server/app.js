@@ -27,12 +27,12 @@ app.get("/api/health", (req, res) => {
  * Protect the AI endpoint from excessive requests.
  *
  * Limit:
- * - 20 chat requests per IP
+ * - 100 chat requests per IP
  * - within a 15-minute window
  */
 const chatRateLimiter = rateLimit({
   windowMs: 15 * 60 * 1000,
-  limit: 20,
+  limit: 100,
   standardHeaders: "draft-8",
   legacyHeaders: false,
   message: {

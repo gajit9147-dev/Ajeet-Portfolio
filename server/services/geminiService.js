@@ -14,6 +14,34 @@ function generateSmartFallback(question, routedKnowledge) {
   const contact = portfolio.contact;
 
   /*
+   * Greetings & Introductions
+   */
+  const trimmed = q.trim();
+  if (/^(hi|hello|hey|greetings|hola|namaste|sup|yo)(\s+.*)?$/i.test(trimmed)) {
+    return `Hello! 👋 I'm **Ajeet AI**, the virtual assistant for **Ajeet Gupta**'s portfolio.
+
+I can help you explore:
+- 🚀 **Projects** (e.g. *InnerVoice*, *PromptWar*, *Laundry Service*)
+- 💻 **Tech Stack & Skills** (React, Node.js, Express, MySQL, AI/ML)
+- 🏆 **LeetCode & GitHub** live statistics
+- 🎓 **Education & Background** (B.Tech CSE at Parul University)
+- 📬 **Contact information & Socials**
+
+What would you like to know about Ajeet?`;
+  }
+
+  if (
+    trimmed.includes("who are you") ||
+    trimmed.includes("what are you") ||
+    trimmed.includes("what can you do") ||
+    trimmed.includes("help me")
+  ) {
+    return `I am **Ajeet AI**, an intelligent portfolio guide designed to tell you all about **Ajeet Gupta** — his projects, skills, education, live GitHub/LeetCode stats, and how to get in touch with him.
+
+Feel free to ask me anything about his work!`;
+  }
+
+  /*
    * Instagram
    *
    * This is checked BEFORE the general social-profile fallback
@@ -605,28 +633,49 @@ async function askGemini(messages) {
       routedKnowledge
     );
 
-  const conversation = messages
+  // Filter and map incoming messages to Gemini roles
+  let rawConversation = messages
     .filter(
       (message) =>
         message &&
-        typeof message.content ===
-          "string" &&
+        typeof message.content === "string" &&
         message.content.trim() &&
-        !message.content.includes(
-          "couldn't connect"
-        )
+        !message.content.includes("couldn't connect")
     )
     .map((message) => ({
-      role:
-        message.role === "assistant"
-          ? "model"
-          : "user",
+      role: message.role === "assistant" ? "model" : "user",
       parts: [
         {
-          text: message.content,
+          text: message.content.trim(),
         },
       ],
     }));
+
+  // Gemini API requires the first turn to have role 'user'
+  while (rawConversation.length > 0 && rawConversation[0].role === "model") {
+    rawConversation.shift();
+  }
+
+  // Ensure strictly alternating user/model roles
+  const conversation = [];
+  for (const item of rawConversation) {
+    if (
+      conversation.length === 0 ||
+      conversation[conversation.length - 1].role !== item.role
+    ) {
+      conversation.push(item);
+    } else {
+      conversation[conversation.length - 1].parts[0].text += `\n${item.parts[0].text}`;
+    }
+  }
+
+  // If conversation is empty after stripping leading model messages, add current query
+  if (conversation.length === 0) {
+    conversation.push({
+      role: "user",
+      parts: [{ text: latestUserMessage || "Hello" }],
+    });
+  }
 
   try {
     const ai = new GoogleGenAI({
@@ -635,12 +684,10 @@ async function askGemini(messages) {
 
     const candidateModels = [
       process.env.GEMINI_MODEL,
-      "gemini-3.5-flash-lite",
-      "gemini-3.1-flash-lite",
-      "gemini-3.7-flash",
-      "gemini-3.8-flash",
-      "gemini-flash-lite-latest",
-      "gemini-flash-latest",
+      "gemini-2.5-flash",
+      "gemini-2.0-flash",
+      "gemini-2.0-flash-lite",
+      "gemini-1.5-flash",
     ].filter(Boolean);
 
     const uniqueModels = [...new Set(candidateModels)];
@@ -667,11 +714,17 @@ async function askGemini(messages) {
           );
           continue;
         }
+
         console.warn(`Gemini model ${model} error:`, error.message);
+
+        // If credentials / API key are invalid, don't spam other models with the bad key
+        if (error.status === 400 || error.status === 401 || error.status === 403) {
+          break;
+        }
       }
     }
 
-    // If all models hit quota or are unavailable, serve instant verified portfolio fallback
+    // If all models hit quota, bad key, or are unavailable, serve verified portfolio fallback
     return generateSmartFallback(latestUserMessage, routedKnowledge);
   } catch (error) {
     return generateSmartFallback(latestUserMessage, routedKnowledge);

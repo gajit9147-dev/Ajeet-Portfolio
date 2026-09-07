@@ -8,13 +8,13 @@ const contactLinks = [
   },
   {
     label: "LINKEDIN",
-    value: "Connect professionally",
-    href: "https://www.linkedin.com/",
+    value: "ajeet-gupta",
+    href: "https://www.linkedin.com/in/ajeet-gupta-970478273/",
   },
   {
     label: "EMAIL",
-    value: "Start a conversation",
-    href: "mailto:your-email@example.com",
+    value: "ajeetgupta80045@gmail.com",
+    href: "mailto:ajeetgupta80045@gmail.com",
   },
 ];
 
@@ -83,7 +83,7 @@ function Contact() {
             </p>
 
             <a
-              href="mailto:your-email@example.com"
+              href="mailto:ajeetgupta80045@gmail.com"
               className="contact-primary"
             >
               START A CONVERSATION

@@ -1,7 +1,9 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import "./AIAssistant.css";
+
+const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:5000";
 
 const suggestedQuestions = [
   "What has Ajeet built?",
@@ -18,12 +20,20 @@ const initialMessage = {
 
 function AIAssistant() {
   const [open, setOpen] = useState(false);
-
   const [messages, setMessages] = useState([initialMessage]);
-
   const [input, setInput] = useState("");
-
   const [loading, setLoading] = useState(false);
+  const messagesEndRef = useRef(null);
+
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  useEffect(() => {
+    if (open) {
+      scrollToBottom();
+    }
+  }, [messages, loading, open]);
 
   const sendMessage = async (text) => {
     const message = text.trim();
@@ -46,7 +56,7 @@ function AIAssistant() {
       .map(({ role, content }) => ({ role, content }));
 
     try {
-      const response = await fetch("http://localhost:5000/api/chat", {
+      const response = await fetch(`${API_BASE}/api/chat`, {
         method: "POST",
 
         headers: {
@@ -217,6 +227,8 @@ function AIAssistant() {
                 ))}
               </div>
             )}
+
+            <div ref={messagesEndRef} />
           </div>
 
           <form
