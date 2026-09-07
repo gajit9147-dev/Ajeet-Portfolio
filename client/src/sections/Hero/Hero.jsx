@@ -39,7 +39,7 @@ export default function Hero() {
             CSE · ARTIFICIAL INTELLIGENCE & MACHINE LEARNING
           </div>
 
-          <p className="hero-index">01 / INTRODUCTION</p>
+          <p className="hero-index">INTRODUCTION</p>
 
           <h1>
             Building

@@ -23,42 +23,48 @@ section[id] {
 }
 
 .section-heading {
-  display: grid;
-  grid-template-columns: 1fr 360px;
-  align-items: end;
-  gap: 40px;
-  margin-bottom: 36px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 14px;
+  max-width: 760px;
+  margin: 0 auto 42px;
 }
 
 .section-number {
-  display: block;
-  margin-bottom: 15px;
-
-  color: rgba(255, 255, 255, 0.3);
+  display: inline-block;
+  margin-bottom: 2px;
+  text-align: center;
+  color: var(--accent-cyan, #61e8ff);
   font-family: var(--mono);
-  font-size: 9px;
-  letter-spacing: 0.1em;
+  font-size: 0.74rem;
+  letter-spacing: 0.16em;
+  font-weight: 500;
+  text-transform: uppercase;
 }
 
 .section-heading h2 {
   margin: 0;
-
-  font-size: clamp(42px, 5vw, 72px);
-  line-height: 0.95;
-  letter-spacing: -0.055em;
-  font-weight: 600;
+  text-align: center;
+  font-size: clamp(38px, 4.5vw, 64px);
+  line-height: 1.05;
+  letter-spacing: -0.045em;
+  font-weight: 700;
 }
 
 .section-heading h2 span {
-  color: rgba(255, 255, 255, 0.35);
+  color: rgba(255, 255, 255, 0.45);
 }
 
-.section-heading > p {
-  margin: 0;
-
+.section-heading > p,
+.section-heading p {
+  margin: 0 auto;
+  text-align: center;
   color: var(--muted);
-  font-size: 13px;
-  line-height: 1.8;
+  font-size: 14px;
+  line-height: 1.75;
+  max-width: 580px;
 }
 
 /* =========================================
@@ -320,8 +326,12 @@ section[id] {
   }
 
   .section-heading {
-    grid-template-columns: 1fr;
-    gap: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 14px;
+    margin-bottom: 28px;
   }
 
   .about-grid {

@@ -23,16 +23,18 @@
 ========================================================= */
 
 .journey-heading {
-  display: grid;
-  grid-template-columns: 1.2fr 0.8fr;
-  gap: 40px;
-  align-items: flex-end;
-  margin-bottom: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 14px;
+  max-width: 720px;
+  margin: 0 auto 36px;
 }
 
 .journey-heading .section-index {
   display: inline-block;
-  margin-bottom: 14px;
+  margin-bottom: 2px;
   color: var(--accent-cyan, #61e8ff);
   font-family: var(--mono);
   font-size: 0.74rem;
@@ -43,52 +45,55 @@
 
 .journey-heading h2 {
   margin: 0;
-  font-size: clamp(2.6rem, 5vw, 4.6rem);
-  line-height: 0.98;
-  letter-spacing: -0.045em;
+  text-align: center;
+  font-size: clamp(2.4rem, 4.5vw, 3.8rem);
+  line-height: 1.05;
+  letter-spacing: -0.04em;
   font-weight: 700;
   color: #ffffff;
   background: linear-gradient(135deg, #ffffff 30%, #90b8ff 100%);
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
 .journey-heading p {
-  margin: 0;
-  max-width: 440px;
+  margin: 0 auto;
+  text-align: center;
+  max-width: 540px;
   color: var(--text-muted, #8991a5);
-  font-size: clamp(0.95rem, 1.1vw, 1.05rem);
-  line-height: 1.75;
+  font-size: clamp(0.92rem, 1.05vw, 1.02rem);
+  line-height: 1.7;
 }
 
 /* =========================================================
-   JOURNEY LAYOUT (TERMINAL + TIMELINE)
+   JOURNEY OVERVIEW ROW (EQUAL HEIGHT 1fr 1fr)
 ========================================================= */
 
-.journey-layout {
+.journey-overview {
   display: grid;
-  grid-template-columns: 0.85fr 1.15fr;
-  gap: 36px;
-  align-items: flex-start;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  align-items: stretch;
   width: 100%;
 }
 
 /* =========================================================
-   JOURNEY TERMINAL
+   JOURNEY TERMINAL (LEFT OVERVIEW CARD)
 ========================================================= */
 
 .journey-terminal {
-  position: sticky;
-  top: 100px;
   display: flex;
   flex-direction: column;
   border-radius: 24px;
   overflow: hidden;
-  background: rgba(9, 14, 24, 0.8);
+  background: rgba(9, 14, 24, 0.78);
   border: 1px solid var(--glass-border);
   box-shadow:
-    0 24px 50px rgba(0, 0, 0, 0.35),
+    0 20px 50px rgba(0, 0, 0, 0.35),
     inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  height: 100%;
+  box-sizing: border-box;
 }
 
 .journey-terminal-header {
@@ -123,26 +128,21 @@
 }
 
 @keyframes journeyStatusGlow {
-  0%,
-  100% {
-    opacity: 1;
-    transform: scale(1);
-  }
-  50% {
-    opacity: 0.45;
-    transform: scale(0.85);
-  }
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.45; transform: scale(0.85); }
 }
 
 .journey-terminal-body {
-  padding: 24px 26px;
+  padding: 22px 24px;
   font-family: var(--mono);
-  font-size: 0.84rem;
-  line-height: 1.85;
+  font-size: 0.82rem;
+  line-height: 1.8;
   color: #cfd8dc;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 8px;
+  flex: 1;
+  justify-content: space-between;
 }
 
 .journey-terminal-body p {
@@ -158,89 +158,150 @@
 }
 
 .journey-command {
-  margin-top: 6px;
+  margin-top: 4px;
   color: #f4f7ff;
 }
 
 .journey-terminal-result {
-  padding: 10px 14px;
+  padding: 8px 12px;
   border-radius: 8px;
   background: rgba(97, 232, 255, 0.05);
   border: 1px solid rgba(97, 232, 255, 0.18);
   color: var(--accent-cyan, #61e8ff);
-  font-size: 0.8rem;
-}
-
-.journey-cursor {
-  display: inline-block;
-  color: var(--accent-cyan, #61e8ff);
-  animation: journeyBlink 1s infinite steps(2, start);
-}
-
-@keyframes journeyBlink {
-  0%,
-  100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0;
-  }
+  font-size: 0.78rem;
 }
 
 /* =========================================================
-   JOURNEY TIMELINE & MILESTONES
+   JOURNEY PRINCIPLE (RIGHT OVERVIEW CARD)
 ========================================================= */
 
-.journey-timeline {
-  position: relative;
+.journey-principle {
   display: flex;
   flex-direction: column;
-  gap: 24px;
-  padding-left: 20px;
+  justify-content: space-between;
+  border-radius: 24px;
+  padding: 24px 26px;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.05) 0%,
+    rgba(255, 255, 255, 0.015) 100%
+  );
+  border: 1px solid var(--glass-border);
+  box-shadow:
+    0 20px 50px rgba(0, 0, 0, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  height: 100%;
+  box-sizing: border-box;
 }
 
-.journey-line {
-  position: absolute;
-  left: 45px;
-  top: 24px;
-  bottom: 24px;
-  width: 2px;
-  background: linear-gradient(
-    to bottom,
-    rgba(97, 232, 255, 0.6) 0%,
-    rgba(156, 124, 255, 0.4) 50%,
-    rgba(97, 232, 255, 0.08) 100%
-  );
-  border-radius: 2px;
-  box-shadow: 0 0 12px rgba(97, 232, 255, 0.3);
+.principle-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.14em;
+  color: var(--accent-cyan, #61e8ff);
+  margin-bottom: 12px;
+}
+
+.principle-status-dot {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #72f6c4;
+  font-size: 0.65rem;
+}
+
+.principle-status-dot i {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #72f6c4;
+  box-shadow: 0 0 8px #72f6c4;
+}
+
+.journey-principle h3 {
+  margin: 0 0 12px;
+  font-size: clamp(1.4rem, 2.2vw, 1.85rem);
+  line-height: 1.25;
+  letter-spacing: -0.03em;
+  font-weight: 700;
+  color: #ffffff;
+  background: linear-gradient(135deg, #ffffff 40%, #9cb8ff 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.journey-principle p {
+  margin: 0 0 16px;
+  color: var(--text-muted, #8991a5);
+  font-size: 0.88rem;
+  line-height: 1.68;
+  flex: 1;
+}
+
+.principle-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 14px;
+  border-top: 1px solid rgba(255, 255, 255, 0.07);
+  font-family: var(--mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.1em;
+  color: var(--text-dim, #7a8499);
+}
+
+.principle-arrow {
+  color: var(--accent-cyan, #61e8ff);
+  font-size: 0.9rem;
+}
+
+/* =========================================================
+   JOURNEY CARDS 2x2 GRID (PERFECT EQUAL CARDS)
+========================================================= */
+
+.journey-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+  width: 100%;
 }
 
 .journey-milestone {
-  position: relative;
-  display: grid;
-  grid-template-columns: 52px 1fr;
-  gap: 24px;
-  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   border-radius: 22px;
-  padding: 24px 28px;
+  padding: 24px 26px;
   background: rgba(9, 14, 24, 0.72);
   border: 1px solid var(--glass-border);
+  min-height: 220px;
+  height: 100%;
+  box-sizing: border-box;
   transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
   box-shadow: 0 16px 36px rgba(0, 0, 0, 0.3);
 }
 
 .journey-milestone:hover {
-  transform: translateX(6px);
+  transform: translateY(-4px);
   border-color: rgba(97, 232, 255, 0.38);
-  background: rgba(12, 18, 32, 0.85);
-  box-shadow: 0 20px 45px rgba(97, 232, 255, 0.1);
+  background: rgba(12, 18, 32, 0.88);
+  box-shadow: 0 20px 45px rgba(97, 232, 255, 0.12);
+}
+
+.milestone-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
 }
 
 .milestone-marker {
-  position: relative;
-  z-index: 2;
-  width: 52px;
-  height: 52px;
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -251,54 +312,70 @@
     rgba(7, 10, 18, 0.95)
   );
   border: 1px solid rgba(97, 232, 255, 0.45);
-  backdrop-filter: blur(10px);
-  box-shadow: 0 0 20px rgba(97, 232, 255, 0.25);
-  font-family: var(--mono);
-  font-size: 0.82rem;
-  font-weight: 700;
-  color: #ffffff;
+  box-shadow: 0 0 16px rgba(97, 232, 255, 0.2);
 }
 
-.milestone-content {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
+.milestone-indicator {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent-cyan, #61e8ff);
+  box-shadow: 0 0 8px var(--accent-cyan, #61e8ff);
 }
 
 .milestone-meta {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  gap: 12px;
   font-family: var(--mono);
   font-size: 0.68rem;
   letter-spacing: 0.12em;
+}
+
+.milestone-type {
   color: var(--accent-cyan, #61e8ff);
 }
 
-.milestone-meta span:last-child {
+.milestone-year {
   color: var(--text-dim, #7a8499);
 }
 
-.milestone-content h3 {
+.milestone-body {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.milestone-body h3 {
   margin: 0;
-  font-size: 1.25rem;
+  font-size: 1.2rem;
   font-weight: 600;
   letter-spacing: -0.02em;
   color: #ffffff;
+  line-height: 1.25;
 }
 
 .milestone-place {
   font-family: var(--mono);
-  font-size: 0.76rem;
+  font-size: 0.74rem;
   letter-spacing: 0.06em;
   color: var(--text-dim, #7a8499);
+  margin-top: 4px;
 }
 
-.milestone-content p {
-  margin: 4px 0 8px;
+.milestone-body p {
+  margin: 10px 0 18px;
   color: var(--text-muted, #8991a5);
-  font-size: 0.9rem;
-  line-height: 1.68;
+  font-size: 0.88rem;
+  line-height: 1.62;
+  flex: 1;
+}
+
+.milestone-footer {
+  display: flex;
+  align-items: center;
+  margin-top: auto;
+  padding-top: 4px;
 }
 
 .milestone-state {
@@ -311,7 +388,7 @@
   background: rgba(255, 255, 255, 0.04);
   border: 1px solid rgba(255, 255, 255, 0.08);
   font-family: var(--mono);
-  font-size: 0.66rem;
+  font-size: 0.64rem;
   letter-spacing: 0.1em;
   color: var(--text-secondary, #dce2ef);
 }
@@ -325,81 +402,18 @@
 }
 
 /* =========================================================
-   JOURNEY PRINCIPLE BANNER
-========================================================= */
-
-.journey-principle {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  border-radius: 24px;
-  padding: 40px 48px;
-  background: linear-gradient(
-    135deg,
-    rgba(255, 255, 255, 0.05) 0%,
-    rgba(255, 255, 255, 0.015) 100%
-  );
-  border: 1px solid var(--glass-border);
-  box-shadow:
-    0 24px 50px rgba(0, 0, 0, 0.35),
-    inset 0 1px 0 rgba(255, 255, 255, 0.08);
-  overflow: hidden;
-}
-
-.journey-principle .section-index {
-  display: inline-block;
-  margin-bottom: 16px;
-  color: var(--accent-cyan, #61e8ff);
-  font-family: var(--mono);
-  font-size: 0.74rem;
-  letter-spacing: 0.16em;
-  font-weight: 500;
-  text-transform: uppercase;
-}
-
-.journey-principle h3 {
-  margin: 0;
-  font-size: clamp(1.8rem, 3.5vw, 3rem);
-  line-height: 1.15;
-  letter-spacing: -0.035em;
-  font-weight: 700;
-  color: #ffffff;
-  background: linear-gradient(135deg, #ffffff 40%, #9cb8ff 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  max-width: 600px;
-}
-
-.principle-mark {
-  position: absolute;
-  right: 40px;
-  bottom: 10px;
-  font-family: var(--mono);
-  font-size: clamp(5rem, 12vw, 10rem);
-  font-weight: 800;
-  color: rgba(255, 255, 255, 0.025);
-  pointer-events: none;
-  line-height: 1;
-}
-
-/* =========================================================
    RESPONSIVENESS
 ========================================================= */
 
 @media (max-width: 960px) {
-  .journey-heading {
+  .journey-overview {
     grid-template-columns: 1fr;
     gap: 20px;
   }
 
-  .journey-layout {
+  .journey-cards-grid {
     grid-template-columns: 1fr;
-    gap: 28px;
-  }
-
-  .journey-terminal {
-    position: static;
+    gap: 20px;
   }
 }
 
@@ -414,31 +428,10 @@
     padding: 0;
   }
 
-  .journey-timeline {
-    padding-left: 0;
-  }
-
-  .journey-line {
-    display: none;
-  }
-
-  .journey-milestone {
-    grid-template-columns: 1fr;
-    gap: 16px;
-    padding: 20px;
-  }
-
-  .milestone-marker {
-    width: 44px;
-    height: 44px;
-    font-size: 0.75rem;
-  }
-
+  .journey-milestone,
+  .journey-terminal,
   .journey-principle {
-    padding: 28px 24px;
-  }
-
-  .journey-principle h3 {
-    font-size: 1.6rem;
+    padding: 20px;
+    border-radius: 20px;
   }
 }

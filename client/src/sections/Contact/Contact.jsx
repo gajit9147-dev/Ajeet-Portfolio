@@ -67,7 +67,7 @@ function Contact() {
       <div className="section-shell">
         <div className="contact-main glass">
           <div className="contact-copy">
-            <span className="section-index">08 / CONTACT</span>
+            <span className="section-index">CONTACT</span>
 
             <h2>
               Let's Build

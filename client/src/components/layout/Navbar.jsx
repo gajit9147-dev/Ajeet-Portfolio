@@ -2,14 +2,14 @@ import { useState } from "react";
 import "./Navbar.css";
 
 const navItems = [
-  { label: "01", name: "HOME", href: "#home" },
-  { label: "02", name: "ABOUT", href: "#about" },
-  { label: "03", name: "PROJECTS", href: "#projects" },
-  { label: "04", name: "WORKFLOW", href: "#workflow" },
-  { label: "05", name: "AI LAB", href: "#ai-lab" },
-  { label: "06", name: "STACK", href: "#stack" },
-  { label: "07", name: "JOURNEY", href: "#journey" },
-  { label: "08", name: "CONTACT", href: "#contact" },
+  { name: "HOME", href: "#home" },
+  { name: "ABOUT", href: "#about" },
+  { name: "PROJECTS", href: "#projects" },
+  { name: "WORKFLOW", href: "#workflow" },
+  { name: "AI LAB", href: "#ai-lab" },
+  { name: "STACK", href: "#stack" },
+  { name: "JOURNEY", href: "#journey" },
+  { name: "CONTACT", href: "#contact" },
 ];
 
 export default function Navbar() {
@@ -37,7 +37,6 @@ export default function Navbar() {
               className="nav-link"
               onClick={closeMenu}
             >
-              <span>{item.label}</span>
               {item.name}
             </a>
           ))}

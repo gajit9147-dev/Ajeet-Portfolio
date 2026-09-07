@@ -118,15 +118,11 @@ function Skills() {
     <section className="section skills-section" id="stack">
       <div className="section-shell">
         <div className="section-heading skills-heading">
-          <div>
-            <span className="section-index">06 / STACK</span>
+          <span className="section-index">STACK</span>
 
-            <h2>
-              The Tools
-              <br />
-              I Build With.
-            </h2>
-          </div>
+          <h2>
+            The Tools I Build With.
+          </h2>
 
           <p>
             A practical stack built around full-stack development, AI

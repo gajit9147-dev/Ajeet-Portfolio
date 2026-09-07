@@ -95,20 +95,14 @@
 .nav-link {
   display: inline-flex;
   align-items: center;
-  gap: 4px;
-  padding: 6px 10px;
-  border-radius: 6px;
+  padding: 6px 12px;
+  border-radius: 999px;
   font-family: "DM Mono", monospace;
-  font-size: 0.64rem;
-  letter-spacing: 0.08em;
+  font-size: 0.68rem;
+  letter-spacing: 0.09em;
   color: var(--text-muted, #8991a5);
   text-decoration: none;
   transition: all 0.2s ease;
-}
-
-.nav-link span {
-  color: rgba(97, 232, 255, 0.6);
-  font-size: 0.52rem;
 }
 
 .nav-link:hover {

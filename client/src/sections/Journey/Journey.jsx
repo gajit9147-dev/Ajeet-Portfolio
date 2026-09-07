@@ -2,43 +2,39 @@ import "./Journey.css";
 
 const milestones = [
   {
-    id: "01",
     type: "EDUCATION",
     year: "CURRENT",
-    title: "CSE · Artificial Intelligence & Machine Learning",
-    place: "Computer Science & Engineering",
+    title: "CSE · AI & Machine Learning",
+    place: "Parul University · Computer Science",
     description:
-      "Building a strong foundation in computer science while focusing on artificial intelligence, machine learning and software development.",
+      "Building a strong foundation in core computer science, machine learning models, algorithms, and intelligent software engineering.",
     state: "IN PROGRESS",
   },
   {
-    id: "02",
-    type: "BUILD",
+    type: "ENGINEERING",
     year: "ONGOING",
     title: "Full-Stack Development",
-    place: "Projects · Experiments · Systems",
+    place: "Web Applications · REST APIs · Systems",
     description:
-      "Learning by building complete applications across frontend, backend, databases, APIs and deployment.",
+      "Architecting end-to-end full-stack applications with React, Node.js, Express, databases, and secure authentication pipelines.",
     state: "ACTIVE",
   },
   {
-    id: "03",
-    type: "AI",
+    type: "INNOVATION",
     year: "ONGOING",
-    title: "AI & Generative AI Exploration",
-    place: "AI Lab",
+    title: "Generative AI Systems",
+    place: "AI Lab · LLMs · Intelligent Interfaces",
     description:
-      "Exploring practical ways to integrate AI into applications and create more intelligent digital experiences.",
+      "Exploring practical integrations of generative models, prompt engineering, and intelligent AI assistants across web platforms.",
     state: "EXPLORING",
   },
   {
-    id: "04",
-    type: "HACKATHON",
+    type: "HACKATHONS",
     year: "ACTIVE",
-    title: "Hackathons & Rapid Prototyping",
-    place: "Build · Test · Iterate",
+    title: "Rapid Prototyping & Builds",
+    place: "Hackathons · Sprints · Production MVPs",
     description:
-      "Using hackathons as an environment to turn ideas into working prototypes under real constraints.",
+      "Building fast, resilient prototypes under competitive constraints, solving real-world challenges through iterative teamwork.",
     state: "BUILDING",
   },
 ];
@@ -61,19 +57,19 @@ function JourneyTerminal() {
         </div>
 
         <p>
-          <span>[01]</span> education → in progress
+          <span>[•]</span> education → in progress
         </p>
 
         <p>
-          <span>[02]</span> engineering → building
+          <span>[•]</span> engineering → building
         </p>
 
         <p>
-          <span>[03]</span> ai exploration → active
+          <span>[•]</span> ai exploration → active
         </p>
 
         <p>
-          <span>[04]</span> hackathons → experimenting
+          <span>[•]</span> hackathons → experimenting
         </p>
 
         <div className="journey-command">
@@ -83,8 +79,6 @@ function JourneyTerminal() {
         <div className="journey-terminal-result">
           Keep learning. Keep building.
         </div>
-
-        <span className="journey-cursor">▊</span>
       </div>
     </div>
   );
@@ -93,25 +87,27 @@ function JourneyTerminal() {
 function Milestone({ milestone }) {
   return (
     <article className="journey-milestone glass">
-      <div className="milestone-marker">
-        <span>{milestone.id}</span>
-      </div>
-
-      <div className="milestone-content">
-        <div className="milestone-meta">
-          <span>{milestone.type}</span>
-          <span>{milestone.year}</span>
+      <div className="milestone-header">
+        <div className="milestone-marker">
+          <span className="milestone-indicator" />
         </div>
 
+        <div className="milestone-meta">
+          <span className="milestone-type">{milestone.type}</span>
+          <span className="milestone-year">{milestone.year}</span>
+        </div>
+      </div>
+
+      <div className="milestone-body">
         <h3>{milestone.title}</h3>
-
         <div className="milestone-place">{milestone.place}</div>
-
         <p>{milestone.description}</p>
+      </div>
 
+      <div className="milestone-footer">
         <div className="milestone-state">
           <i />
-          {milestone.state}
+          <span>{milestone.state}</span>
         </div>
       </div>
     </article>
@@ -123,17 +119,11 @@ function Journey() {
     <section className="section journey-section" id="journey">
       <div className="section-shell">
         <div className="section-heading journey-heading">
-          <div>
-            <span className="section-index">07 / JOURNEY</span>
+          <span className="section-index">JOURNEY</span>
 
-            <h2>
-              Learning.
-              <br />
-              Building.
-              <br />
-              Evolving.
-            </h2>
-          </div>
+          <h2>
+            Learning. Building. Evolving.
+          </h2>
 
           <p>
             My journey is less about following a fixed path and more about
@@ -142,30 +132,38 @@ function Journey() {
           </p>
         </div>
 
-        <div className="journey-layout">
+        <div className="journey-overview">
           <JourneyTerminal />
 
-          <div className="journey-timeline">
-            <div className="journey-line" />
+          <div className="journey-principle glass">
+            <div className="principle-top">
+              <span className="principle-tag">ENGINEERING PHILOSOPHY</span>
+              <span className="principle-status-dot">
+                <i />
+                ACTIVE
+              </span>
+            </div>
 
-            {milestones.map((milestone) => (
-              <Milestone key={milestone.id} milestone={milestone} />
-            ))}
+            <h3>
+              Build something. Learn something. Build it better.
+            </h3>
+
+            <p>
+              Every project, experiment, and line of code is an iterative step
+              toward mastering full-stack engineering and intelligent AI systems.
+            </p>
+
+            <div className="principle-footer">
+              <span>CONTINUOUS EVOLUTION</span>
+              <span className="principle-arrow">↗</span>
+            </div>
           </div>
         </div>
 
-        <div className="journey-principle glass">
-          <span className="section-index">CURRENT PRINCIPLE</span>
-
-          <h3>
-            Build something.
-            <br />
-            Learn something.
-            <br />
-            Build it better.
-          </h3>
-
-          <span className="principle-mark">07</span>
+        <div className="journey-cards-grid">
+          {milestones.map((milestone) => (
+            <Milestone key={milestone.title} milestone={milestone} />
+          ))}
         </div>
       </div>
     </section>

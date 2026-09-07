@@ -29,13 +29,10 @@ export default function About() {
   return (
     <section id="about" className="about-section section-shell">
       <div className="section-heading">
-        <div>
-          <span className="section-number">02 / IDENTITY</span>
-          <h2>
-            Who is <span>Ajeet?</span>
-          </h2>
-        </div>
-
+        <span className="section-number">IDENTITY</span>
+        <h2>
+          Who is <span>Ajeet?</span>
+        </h2>
         <p>
           A developer in progress, building at the intersection of
           artificial intelligence and full-stack engineering.

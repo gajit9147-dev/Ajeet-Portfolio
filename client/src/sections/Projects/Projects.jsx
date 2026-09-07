@@ -118,7 +118,6 @@ function ProjectCard({ project }) {
 
       <div className="project-body">
         <div className="project-header">
-          <span className="project-num">{project.number}</span>
           <span className="project-tag">{project.category}</span>
         </div>
 
@@ -183,10 +182,8 @@ function Projects() {
     <section className="section projects-section" id="projects">
       <div className="section-shell">
         <div className="section-heading">
-          <div>
-            <span className="section-index">03 / SELECTED WORK</span>
-            <h2>Featured Projects</h2>
-          </div>
+          <span className="section-index">SELECTED WORK</span>
+          <h2>Featured Projects</h2>
 
           <p>
             Curated systems, web applications, and AI tools built with modern

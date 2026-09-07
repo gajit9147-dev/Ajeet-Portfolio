@@ -47,14 +47,10 @@ export default function Workflow() {
   return (
     <section id="workflow" className="workflow-section section-shell">
       <div className="section-heading">
-        <div>
-          <span className="section-number">04 / ENGINEERING PROCESS</span>
-
-          <h2>
-            How I <span>Build.</span>
-          </h2>
-        </div>
-
+        <span className="section-number">ENGINEERING PROCESS</span>
+        <h2>
+          How I <span>Build.</span>
+        </h2>
         <p>
           From understanding a problem to deploying a working system, I
           approach projects as an iterative engineering process.

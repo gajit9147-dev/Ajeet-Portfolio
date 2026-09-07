@@ -137,15 +137,11 @@ function AILab() {
     <section className="section ai-lab-section" id="ai-lab">
       <div className="section-shell">
         <div className="section-heading ai-lab-heading">
-          <div>
-            <span className="section-index">05 / AI LAB</span>
+          <span className="section-index">AI LAB</span>
 
-            <h2>
-              Where I
-              <br />
-              Experiment.
-            </h2>
-          </div>
+          <h2>
+            Where I Experiment.
+          </h2>
 
           <p>
             A small space for exploring artificial intelligence, generative AI
