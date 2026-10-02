@@ -164,6 +164,22 @@ const ajeetProfile = {
       github: "https://github.com/gajit9147-dev/intreior-design",
       live: "https://gajit9147-dev.github.io/intreior-design/",
     },
+
+    {
+      name: "ScamShield",
+      category: "AI · PAYMENTS · HACKATHON",
+      description:
+        "An AI payment-scam checker built for the PayPal AI Hackathon. It scores invoices and payment requests and opens PayPal sandbox checkout only when the request looks safe.",
+      technologies: [
+        "React",
+        "Node.js",
+        "Express",
+        "Gemini AI",
+        "PayPal API",
+      ],
+      github: "https://github.com/gajit9147-dev/scam-shield-paypal",
+      live: "https://scam-shield-paypal.onrender.com/",
+    },
   ],
 
   currentFocus: [

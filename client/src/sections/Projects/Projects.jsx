@@ -53,6 +53,19 @@ const projects = [
     domain: "gajit9147-dev.github.io/intreior-design",
     image: "/images/projects/interior.jpg",
   },
+  {
+    number: "05",
+    title: "ScamShield",
+    category: "AI · PAYMENTS · HACKATHON",
+    description:
+      "An AI payment-scam checker for the PayPal AI Hackathon. It scores invoices and payment requests with Gemini plus rules, and opens PayPal sandbox checkout only when the request looks safe.",
+    stack: ["React", "Node.js", "Express", "Gemini AI", "PayPal API"],
+    status: "LIVE",
+    github: "https://github.com/gajit9147-dev/scam-shield-paypal",
+    live: "https://scam-shield-paypal.onrender.com/",
+    domain: "scam-shield-paypal.onrender.com",
+    image: "/images/projects/scamshield.jpg",
+  },
 ];
 
 function BrowserMockup({ project }) {
