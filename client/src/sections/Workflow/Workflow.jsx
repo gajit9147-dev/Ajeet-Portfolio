@@ -1,3 +1,5 @@
+import "./Workflow.css";
+
 const workflow = [
   {
     number: "01",
@@ -57,97 +59,34 @@ export default function Workflow() {
         </p>
       </div>
 
-      <div className="workflow-layout">
-        <div className="workflow-intro glass">
-          <div className="panel-top">
+      <div className="build-board glass">
+        <div className="build-board-header">
+          <div className="build-board-label">
+            <i aria-hidden="true" />
             <span>BUILD_PIPELINE</span>
-            <span>PROCESS.01</span>
+            <small>~/ajeet/build</small>
           </div>
-
-          <div className="pipeline-terminal">
-            <div className="terminal-header">
-              <span>
-                <i />
-                SYSTEM_PROCESS
-              </span>
-
-              <span>~/ajeet/build</span>
-            </div>
-
-            <div className="terminal-body">
-              <p>
-                <span className="terminal-green">$</span> initialize project
-              </p>
-
-              <p className="terminal-muted">
-                loading engineering pipeline...
-              </p>
-
-              <p>
-                <span className="terminal-green">✓</span> problem identified
-              </p>
-
-              <p>
-                <span className="terminal-green">✓</span> architecture planned
-              </p>
-
-              <p>
-                <span className="terminal-green">✓</span> system implemented
-              </p>
-
-              <p>
-                <span className="terminal-green">✓</span> intelligence layer
-                integrated
-              </p>
-
-              <p>
-                <span className="terminal-green">✓</span> system tested
-              </p>
-
-              <p className="terminal-current">
-                <span>→</span> ready for deployment
-                <b />
-              </p>
-            </div>
-          </div>
-
-          <div className="workflow-principle">
-            <span>ENGINEERING PRINCIPLE</span>
-
-            <strong>
-              Build small.
-              <br />
-              Learn fast.
-              <br />
-              Iterate continuously.
-            </strong>
-          </div>
+          <span className="build-cycle">06 STEPS / CONTINUOUS ITERATION</span>
         </div>
 
-        <div className="workflow-steps">
-          {workflow.map((step, index) => (
-            <div className="workflow-step" key={step.number}>
-              <div className="workflow-marker">
-                <span>{step.number}</span>
-                {index !== workflow.length - 1 && <i />}
+        <div className="build-stage-grid">
+          {workflow.map((step) => (
+            <article className="build-stage" key={step.number}>
+              <div className="build-stage-top">
+                <span className="build-stage-number">{step.number}</span>
+                <code>{step.command}</code>
+                <span className="build-stage-arrow" aria-hidden="true">↗</span>
               </div>
-
-              <div className="glass workflow-card">
-                <div className="workflow-card-top">
-                  <span>{step.command}</span>
-                  <span>0{index + 1}</span>
-                </div>
-
-                <h3>{step.title}</h3>
-
-                <p>{step.description}</p>
-
-                <div className="workflow-progress">
-                  <span />
-                </div>
-              </div>
-            </div>
+              <h3>{step.title}</h3>
+              <p>{step.description}</p>
+            </article>
           ))}
+        </div>
+
+        <div className="build-board-footer">
+          <span className="build-principle-label">ENGINEERING PRINCIPLE</span>
+          <p>Build small. <span>Learn fast.</span> Iterate continuously.</p>
+          <span className="build-loop" aria-hidden="true">↻</span>
         </div>
       </div>
     </section>

@@ -1,0 +1,213 @@
+/* A compact process board, scoped to the engineering section. */
+#workflow {
+  padding-top: 32px;
+  padding-bottom: 20px;
+}
+
+#workflow .section-heading {
+  margin-bottom: 24px;
+}
+
+#workflow .build-board {
+  overflow: hidden;
+  border-radius: 24px;
+  background: linear-gradient(135deg, rgba(97, 232, 255, 0.035), rgba(13, 18, 29, 0.85) 50%);
+  border: 1px solid rgba(175, 200, 255, 0.14);
+  box-shadow: 0 18px 44px rgba(0, 0, 0, 0.22);
+}
+
+#workflow .build-board-header,
+#workflow .build-board-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 18px 22px;
+}
+
+#workflow .build-board-header {
+  border-bottom: 1px solid rgba(175, 200, 255, 0.1);
+}
+
+#workflow .build-board-label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  color: #e2eaf9;
+}
+
+#workflow .build-board-label i {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #72f6c4;
+  box-shadow: 0 0 12px rgba(114, 246, 196, 0.6);
+}
+
+#workflow .build-board-label small {
+  color: var(--text-muted);
+  font-size: 0.66rem;
+  margin-left: 10px;
+}
+
+#workflow .build-cycle,
+#workflow .build-principle-label {
+  font-family: var(--mono);
+  font-size: 0.63rem;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+}
+
+#workflow .build-stage-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  padding: 16px;
+}
+
+#workflow .build-stage {
+  padding: 18px;
+  border: 1px solid rgba(175, 200, 255, 0.1);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.025);
+  transition: border-color 180ms, background 180ms;
+}
+
+#workflow .build-stage:hover {
+  border-color: rgba(97, 232, 255, 0.35);
+  background: rgba(97, 232, 255, 0.045);
+}
+
+#workflow .build-stage-top {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 18px;
+}
+
+#workflow .build-stage-number {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
+  border-radius: 10px;
+  background: rgba(97, 232, 255, 0.08);
+  border: 1px solid rgba(97, 232, 255, 0.16);
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  color: #8ae8fa;
+}
+
+#workflow .build-stage code {
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  color: #a1aec4;
+}
+
+#workflow .build-stage-arrow {
+  margin-left: auto;
+  color: #5e738f;
+}
+
+#workflow .build-stage h3 {
+  margin: 0 0 9px;
+  font-size: 1rem;
+  letter-spacing: 0.035em;
+  color: #f2f6ff;
+}
+
+#workflow .build-stage p {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 0.86rem;
+  line-height: 1.65;
+}
+
+#workflow .build-board-footer {
+  border-top: 1px solid rgba(175, 200, 255, 0.1);
+  background: rgba(97, 232, 255, 0.025);
+}
+
+#workflow .build-board-footer p {
+  margin: 0;
+  font-size: 0.96rem;
+  color: #e4ebf7;
+}
+
+#workflow .build-board-footer p span {
+  color: #8ae8fa;
+}
+
+#workflow .build-loop {
+  font-size: 1.5rem;
+  color: #8ae8fa;
+}
+
+@media (max-width: 960px) {
+  #workflow .build-stage-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  #workflow .build-board-label small {
+    display: none;
+  }
+}
+
+@media (max-width: 600px) {
+  #workflow {
+    padding-top: 26px;
+    padding-bottom: 16px;
+  }
+
+  #workflow .section-heading {
+    margin-bottom: 18px;
+  }
+
+  #workflow .build-board {
+    border-radius: 20px;
+  }
+
+  #workflow .build-board-header {
+    padding: 14px 16px;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  #workflow .build-cycle {
+    font-size: 0.58rem;
+  }
+
+  #workflow .build-stage-grid {
+    grid-template-columns: 1fr;
+    padding: 10px;
+    gap: 10px;
+  }
+
+  #workflow .build-stage {
+    padding: 16px;
+  }
+
+  #workflow .build-stage-top {
+    margin-bottom: 12px;
+  }
+
+  #workflow .build-board-footer {
+    padding: 16px;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  #workflow .build-principle-label {
+    width: 100%;
+  }
+
+  #workflow .build-board-footer p {
+    flex: 1;
+    font-size: 0.86rem;
+    line-height: 1.7;
+  }
+}
