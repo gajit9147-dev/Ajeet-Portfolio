@@ -893,31 +893,20 @@
   }
 }
 
-/* Align the module row with the compact experiment panels. */
-.ai-lab-section .lab-modules {
-  width: min(100%, 856px);
-  align-self: center;
-  gap: 16px;
-}
-
-.ai-lab-section .lab-module {
-  padding: 18px;
+/* Keep the original wide module row and banner; spread only the square pair. */
+.ai-lab-layout {
+  justify-content: space-between;
 }
 
 @media (max-width: 860px) {
-  .ai-lab-section .lab-modules {
-    width: min(100%, 380px);
-    gap: 14px;
+  .ai-lab-layout {
+    justify-content: center;
   }
 }
 
-.ai-lab-section .ajeet-ai {
-  width: min(100%, 856px);
-  align-self: center;
-}
-
-@media (max-width: 860px) {
-  .ai-lab-section .ajeet-ai {
-    width: min(100%, 380px);
+@media (min-width: 861px) {
+  .ai-lab-layout {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
   }
 }
