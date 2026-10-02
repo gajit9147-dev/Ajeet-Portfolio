@@ -6,7 +6,7 @@
 .ai-lab-section {
   position: relative;
   width: 100%;
-  padding: 50px 0 25px;
+  padding: 30px 0 15px;
 }
 
 .ai-lab-section .section-shell {
@@ -713,7 +713,7 @@
 
 @media (max-width: 600px) {
   .ai-lab-section {
-    padding: 35px 0 20px;
+    padding: 22px 0 12px;
   }
 
   .ai-lab-section .section-shell {

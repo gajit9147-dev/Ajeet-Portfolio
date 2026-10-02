@@ -10,7 +10,7 @@ section[id] {
   position: relative;
   width: min(1380px, calc(100% - 10vw));
   margin: 0 auto;
-  padding: 55px 0 35px;
+  padding: 32px 0 20px;
 }
 
 /* Sections that have their own outer container padding reset inner shell padding */
@@ -19,7 +19,7 @@ section[id] {
 }
 
 .about-section {
-  padding: 55px 0 35px;
+  padding: 32px 0 20px;
 }
 
 .section-heading {
@@ -29,7 +29,7 @@ section[id] {
   text-align: center;
   gap: 14px;
   max-width: 760px;
-  margin: 0 auto 42px;
+  margin: 0 auto 26px;
 }
 
 .section-number {
@@ -313,7 +313,7 @@ section[id] {
 @media (max-width: 900px) {
   .section-shell {
     width: min(100% - 40px, 700px);
-    padding: 40px 0 25px;
+    padding: 26px 0 16px;
   }
 
   .section .section-shell {
@@ -322,7 +322,7 @@ section[id] {
 
   .about-section,
   .workflow-section {
-    padding: 40px 0 25px;
+    padding: 26px 0 16px;
   }
 
   .section-heading {
@@ -330,8 +330,8 @@ section[id] {
     flex-direction: column;
     align-items: center;
     text-align: center;
-    gap: 14px;
-    margin-bottom: 28px;
+    gap: 12px;
+    margin-bottom: 20px;
   }
 
   .about-grid {
@@ -767,7 +767,7 @@ section[id] {
 ========================================= */
 
 .workflow-section {
-  padding: 55px 0 35px;
+  padding: 32px 0 20px;
 }
 
 .workflow-layout {
