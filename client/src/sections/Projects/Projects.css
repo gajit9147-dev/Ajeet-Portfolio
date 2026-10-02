@@ -69,6 +69,12 @@
   gap: 16px;
 }
 
+@media (min-width: 961px) {
+  .projects-grid > .modern-project-card:last-child:nth-child(odd) {
+    grid-column: 1 / -1;
+  }
+}
+
 /* =========================================================
    MODERN PROJECT CARD
 ========================================================= */
