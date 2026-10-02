@@ -892,3 +892,32 @@
     height: 205px;
   }
 }
+
+/* Align the module row with the compact experiment panels. */
+.ai-lab-section .lab-modules {
+  width: min(100%, 856px);
+  align-self: center;
+  gap: 16px;
+}
+
+.ai-lab-section .lab-module {
+  padding: 18px;
+}
+
+@media (max-width: 860px) {
+  .ai-lab-section .lab-modules {
+    width: min(100%, 380px);
+    gap: 14px;
+  }
+}
+
+.ai-lab-section .ajeet-ai {
+  width: min(100%, 856px);
+  align-self: center;
+}
+
+@media (max-width: 860px) {
+  .ai-lab-section .ajeet-ai {
+    width: min(100%, 380px);
+  }
+}
