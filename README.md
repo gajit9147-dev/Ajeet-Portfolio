@@ -7,7 +7,7 @@ An interactive, production-grade portfolio and AI systems lab showcasing full-st
 ## Highlights
 
 - **Liquid Glass Design System**: Deep dark mode aesthetics, dynamic ambient light orbs, and glassmorphism with GPU-accelerated backdrop blur.
-- **Embedded AI Assistant**: Real-time conversational agent powered by **Google Gemini 2.5 Flash**, equipped with dynamic knowledge routing and developer context grounding.
+- **Embedded AI Assistant**: Real-time conversational agent powered by **Google Gemini 3.8 Flash**, equipped with dynamic knowledge routing and developer context grounding.
 - **Live Telemetry & Telemetry Sync**: Integrated live statistics from GitHub repositories, LeetCode algorithmic benchmarks, and social feeds.
 - **Featured System Showcases**:
   - **InnerVoice**: Secure full-stack digital space for personal journaling, authentication, Cloudinary storage, and analytics dashboards.
@@ -23,7 +23,7 @@ An interactive, production-grade portfolio and AI systems lab showcasing full-st
 | :--- | :--- |
 | **Frontend** | React 18, Vite, Vanilla CSS (Liquid Glass Architecture), Remark GFM, Lucide Icons |
 | **Backend** | Node.js, Express.js, Express Rate Limit, Octokit, LeetCode Query |
-| **AI / LLM** | Google Gemini API (`gemini-2.5-flash`, `gemini-2.0-flash`, `gemini-1.5-flash`), Prompt Engineering |
+| **AI / LLM** | Google Gemini API (`gemini-3.8-flash`, `gemini-2.0-flash`, `gemini-1.5-flash`), Prompt Engineering |
 | **Database & Cloud** | MySQL, MongoDB, Cloudinary, Vercel, Render, Git/GitHub |
 
 ---
@@ -111,7 +111,7 @@ Edit `server/.env`:
 ```env
 PORT=5000
 GEMINI_API_KEY=your_gemini_api_key_here
-GEMINI_MODEL=gemini-2.5-flash
+GEMINI_MODEL=gemini-3.8-flash
 INSTAGRAM_USERNAME=_ajeetgupta_07
 GITHUB_USERNAME=gajit9147-dev
 LEETCODE_USERNAME=COaYLmMANY
