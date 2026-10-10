@@ -3,7 +3,7 @@ require("dotenv").config();
 const app = require("./app");
 
 const PORT = process.env.PORT || 5000;
-const MODEL = process.env.GEMINI_MODEL || "gemini-2.5-flash";
+const MODEL = process.env.GEMINI_MODEL || "gemini-3.8-flash";
 
 const server = app.listen(PORT, () => {
   console.log(`
@@ -27,5 +27,4 @@ server.on("error", (error) => {
 });
 
 module.exports = app;
-
 
