@@ -684,7 +684,7 @@ async function askGemini(messages) {
 
     const candidateModels = [
       process.env.GEMINI_MODEL,
-      "gemini-2.5-flash",
+      "gemini-3.8-flash",
       "gemini-2.0-flash",
       "gemini-2.0-flash-lite",
       "gemini-1.5-flash",
@@ -699,7 +699,9 @@ async function askGemini(messages) {
           contents: conversation,
           config: {
             systemInstruction,
-            temperature: 0.4,
+            ...(model.startsWith("gemini-3")
+              ? { thinkingConfig: { thinkingLevel: "low" } }
+              : { temperature: 0.4 }),
             maxOutputTokens: 800,
           },
         });
