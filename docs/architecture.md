@@ -21,7 +21,7 @@ This portfolio operates as an interactive AI Systems Lab showcasing real-time de
                ▼                          ▼
 ┌──────────────────────────┐   ┌──────────────────────────┐
 │   Live Data Aggregators  │   │     Google Gemini API    │
-│  - GitHub API (Octokit)  │   │  - gemini-2.5-flash      │
+│  - GitHub API (Octokit)  │   │  - gemini-3.8-flash      │
 │  - LeetCode GraphQL API  │   │  - Structured Grounding  │
 │  - Public Instagram Feed │   │  - Safe History Handling │
 └──────────────────────────┘   └──────────────────────────┘
