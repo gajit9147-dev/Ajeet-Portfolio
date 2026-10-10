@@ -55,7 +55,7 @@ Chat with Ajeet's integrated AI Assistant powered by Google Gemini and live deve
   {
     "success": true,
     "reply": "Ajeet has engineered several key projects including InnerVoice (a full-stack AI journal with user authentication and dashboard metrics), PromptWar (a competitive prompt engineering arena), and high-performance modern web experiences like Elite Wash and Luxury Living.",
-    "model": "gemini-2.5-flash",
+    "model": "gemini-3.8-flash",
     "timestamp": "2025-01-01T00:00:00.000Z"
   }
   ```
