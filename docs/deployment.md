@@ -30,7 +30,7 @@ The repository includes a ready-to-deploy `server/vercel.json`:
 2. Set **Root Directory** to `server`.
 3. Add environment variables:
    - `GEMINI_API_KEY`: Your Google AI Gemini API key.
-   - `GEMINI_MODEL`: `gemini-2.5-flash`
+   - `GEMINI_MODEL`: `gemini-3.8-flash`
    - `GITHUB_TOKEN`: (Optional) GitHub personal access token for higher rate limits.
    - `PORT`: `5000` (optional)
 
@@ -41,5 +41,5 @@ The repository includes a ready-to-deploy `server/vercel.json`:
 4. Set **Start Command** to `node server.js`.
 5. Add environment variables:
    - `GEMINI_API_KEY`: Your Google AI Gemini API key.
-   - `GEMINI_MODEL`: `gemini-2.5-flash`
+   - `GEMINI_MODEL`: `gemini-3.8-flash`
    - `PORT`: `5000`
