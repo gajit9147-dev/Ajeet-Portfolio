@@ -2,70 +2,50 @@ import { useState } from "react";
 import "./Navbar.css";
 
 const navItems = [
-  { name: "HOME", href: "#home" },
-  { name: "ABOUT", href: "#about" },
-  { name: "PROJECTS", href: "#projects" },
-  { name: "WORKFLOW", href: "#workflow" },
-  { name: "AI LAB", href: "#ai-lab" },
-  { name: "STACK", href: "#stack" },
-  { name: "JOURNEY", href: "#journey" },
-  { name: "CONTACT", href: "#contact" },
+  { name: "about", href: "#about" },
+  { name: "projects", href: "#projects" },
+  { name: "log", href: "#log" },
+  { name: "stack", href: "#stack" },
+  { name: "contact", href: "#contact" },
 ];
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
-
-  const closeMenu = () => setOpen(false);
+  const close = () => setOpen(false);
 
   return (
     <header className="site-header">
-      <nav className="glass navbar">
-        <a href="#home" className="brand" onClick={closeMenu}>
-          <span className="brand-mark">AG</span>
-
-          <span className="brand-copy">
-            <strong>AJEET</strong>
-            <small>AI SYSTEMS LAB</small>
-          </span>
+      <nav className="navbar" aria-label="Main">
+        <a href="#home" className="brand" onClick={close}>
+          <b>ajeet</b>.ipynb
         </a>
 
-        <div className={`nav-links ${open ? "is-open" : ""}`}>
+        <div id="nav-links" className={`nav-links ${open ? "is-open" : ""}`}>
           {navItems.map((item) => (
-            <a
-              key={item.name}
-              href={item.href}
-              className="nav-link"
-              onClick={closeMenu}
-            >
+            <a key={item.name} href={item.href} onClick={close}>
               {item.name}
             </a>
           ))}
         </div>
 
-        <div className="nav-actions">
-          <span className="system-status">
-            <i />
-            AVAILABLE
-          </span>
-
+        <div className="nav-right">
           <a
             href="/resume/Ajeet_Gupta_Resume.pdf"
-            className="resume-button"
+            className="resume-link"
             target="_blank"
             rel="noreferrer"
           >
-            RESUME
-            <span>↗</span>
+            resume.pdf
           </a>
 
           <button
             className="menu-button"
-            onClick={() => setOpen((value) => !value)}
-            aria-label="Toggle navigation"
+            onClick={() => setOpen((v) => !v)}
+            aria-label="Toggle navigation menu"
             aria-expanded={open}
+            aria-controls="nav-links"
           >
-            <span />
-            <span />
+            {open ? "close" : "menu"}
           </button>
         </div>
       </nav>
