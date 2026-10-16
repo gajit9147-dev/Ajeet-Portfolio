@@ -5,7 +5,7 @@ const milestones = [
     type: "EDUCATION",
     year: "CURRENT",
     title: "CSE · AI & Machine Learning",
-    place: "Parul University · Computer Science",
+    place: "B.Tech · Computer Science",
     description:
       "Building a strong foundation in core computer science, machine learning models, algorithms, and intelligent software engineering.",
     state: "IN PROGRESS",

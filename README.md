@@ -166,7 +166,6 @@ Distributed under the MIT License. See [`LICENSE`](LICENSE) for more details.
 ## Connect
 
 - **Author**: Ajeet Gupta
-- **Location**: Vadodara, Gujarat, India
 - **Email**: [ajeetgupta80045@gmail.com](mailto:ajeetgupta80045@gmail.com)
 - **LinkedIn**: [linkedin.com/in/ajeet-gupta-970478273](https://www.linkedin.com/in/ajeet-gupta-970478273/)
 - **GitHub**: [github.com/gajit9147-dev](https://github.com/gajit9147-dev)
