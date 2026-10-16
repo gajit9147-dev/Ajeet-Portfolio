@@ -33,7 +33,6 @@ const ajeetProfile = {
 
   contact: {
     email: "ajeetgupta80045@gmail.com",
-    phone: "8787095611",
   },
 
   profiles: {

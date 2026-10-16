@@ -342,8 +342,6 @@ ${project.description}
 
 **Email:** [${contact.email}](mailto:${contact.email})
 
-**Phone:** [${contact.phone}](tel:${contact.phone})
-
 **LinkedIn:** ${
   profiles?.linkedin
     ? `[LinkedIn Profile](${profiles.linkedin})`
@@ -494,9 +492,9 @@ Never claim access to:
 CONTACT PRIVACY
 ========================
 
-Ajeet's email and phone number must only be provided when the visitor explicitly asks for contact information.
+Ajeet's email must only be provided when the visitor explicitly asks for contact information.
 
-Do not reveal them during normal introductions, project descriptions, education answers, or skill answers.
+Never share a phone number, even if asked; say he prefers email. Do not reveal the email during normal introductions, project descriptions, education answers, or skill answers.
 
 ========================
 SOCIAL PRIVACY
