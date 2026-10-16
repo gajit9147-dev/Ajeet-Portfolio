@@ -18,7 +18,7 @@ function findProjectByName(query) {
   const projects = getProjects();
 
   const aliases = {
-    innervoice: ["innervoice", "inner voice"],
+    scamshield: ["scamshield", "scam shield"],
     promptwar: ["promptwar", "prompt war"],
     laundry: ["laundry", "laundry service"],
     "interior design": ["interior design", "interior"],
@@ -210,7 +210,7 @@ function getKnowledge(question = "") {
   /*
    * Explicit project request:
    *
-   * "Tell me about InnerVoice"
+   * "Tell me about ScamShield"
    */
   if (explicitProject) {
     knowledge.projects = [explicitProject];

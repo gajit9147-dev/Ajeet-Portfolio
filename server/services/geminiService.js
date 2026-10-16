@@ -21,7 +21,7 @@ function generateSmartFallback(question, routedKnowledge) {
     return `Hello! 👋 I'm **Ajeet AI**, the virtual assistant for **Ajeet Gupta**'s portfolio.
 
 I can help you explore:
-- 🚀 **Projects** (e.g. *InnerVoice*, *PromptWar*, *Laundry Service*)
+- 🚀 **Projects** (e.g. *ScamShield*, *PromptWar*, *Laundry Service*)
 - 💻 **Tech Stack & Skills** (React, Node.js, Express, MySQL, AI/ML)
 - 🏆 **LeetCode & GitHub** live statistics
 - 🎓 **Education & Background** (B.Tech CSE, AI/ML)
@@ -131,7 +131,7 @@ Feel free to ask me anything about his work!`;
     q.includes("projects") ||
     q.includes("built") ||
     q.includes("developed") ||
-    q.includes("innervoice") ||
+    q.includes("scamshield") ||
     q.includes("promptwar") ||
     q.includes("prompt war") ||
     q.includes("laundry") ||
@@ -399,7 +399,7 @@ He focuses on **${
       "Artificial Intelligence, Machine Learning, Generative AI and Full-Stack Development"
     }**.
 
-He learns by building practical projects such as **InnerVoice** and **PromptWar**.`;
+He learns by building practical projects such as **ScamShield** and **PromptWar**.`;
   }
 
   return "I don't currently have verified information to answer that question about Ajeet.";

@@ -10,7 +10,6 @@ An interactive, production-grade portfolio and AI systems lab showcasing full-st
 - **Embedded AI Assistant**: Real-time conversational agent powered by **Google Gemini 3.8 Flash**, equipped with dynamic knowledge routing and developer context grounding.
 - **Live Telemetry & Telemetry Sync**: Integrated live statistics from GitHub repositories, LeetCode algorithmic benchmarks, and social feeds.
 - **Featured System Showcases**:
-  - **InnerVoice**: Secure full-stack digital space for personal journaling, authentication, Cloudinary storage, and analytics dashboards.
   - **PromptWar**: Competitive prompt engineering arena featuring AI-evaluated submissions, automated leaderboard scoring, and mentor guidance.
   - **Elite Wash & Luxury Living**: Modern, high-performance web applications focused on conversion optimization and clean aesthetics.
 - **Robust Architecture**: Separation of concerns between a React 18 + Vite frontend and a Node.js + Express backend with rate limiting and automated fallback error handling.

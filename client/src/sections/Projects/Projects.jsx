@@ -37,25 +37,6 @@ const projects = [
     limit:
       "The scores are an AI opinion or a fallback rule, so treat them as hints, not a verdict.",
   },
-  {
-    title: "QuickBerth",
-    context: "Tatkal request planner",
-    text: "Pick a preferred train and three backups and send one clear Tatkal request. Search, fare boxes and a date picker are built into the plan page.",
-    image: "/images/projects/quickberth.jpg",
-    alt: "QuickBerth plan page with a Tatkal window banner and a train video",
-    caption: "QuickBerth plan page, captured 16 Oct 2026",
-    live: "https://quickberth.dpdns.org",
-    code: "https://github.com/gajit9147-dev/QuickBerth",
-    limit:
-      "The site itself says its confirmation target is not measured or guaranteed and depends on live availability.",
-  },
-  {
-    title: "InnerVoice",
-    context: "full-stack practice project",
-    text: "Private notes with login, a profile page and a small dashboard. React and Express on the front, MySQL and JWT behind it.",
-    code: "https://github.com/gajit9147-dev/innerVoice",
-    limit: "No live demo and no screenshot yet. The code is on GitHub.",
-  },
 ];
 
 export default function Projects() {
