@@ -100,23 +100,6 @@ const ajeetProfile = {
 
   projects: [
     {
-      name: "InnerVoice",
-      category: "AI · FULL-STACK · PRODUCT",
-      description:
-        "A full-stack digital space for private notes, authentication, profile management and dashboard analytics.",
-      technologies: [
-        "React",
-        "Vite",
-        "Node.js",
-        "Express",
-        "MySQL",
-        "Cloudinary",
-        "JWT",
-      ],
-      github: "https://github.com/gajit9147-dev/innerVoice",
-    },
-
-    {
       name: "PromptWar",
       category: "AI · PROMPT ENGINEERING",
       description:
