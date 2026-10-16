@@ -2,32 +2,26 @@ import Navbar from "./components/layout/Navbar";
 import Hero from "./sections/Hero/Hero";
 import About from "./sections/About/About";
 import Projects from "./sections/Projects/Projects";
-import Workflow from "./sections/Workflow/Workflow";
-import AILab from "./sections/AILab/AILab";
+import Log from "./sections/Log/Log";
 import Skills from "./sections/Skills/Skills";
-import Journey from "./sections/Journey/Journey";
 import Contact from "./sections/Contact/Contact";
 import AIAssistant from "./components/ai/AIAssistant";
 
 function App() {
   return (
     <div className="app">
-      <div className="background-system">
-        <div className="ambient-orb orb-one" />
-        <div className="ambient-orb orb-two" />
-        <div className="ambient-orb orb-three" />
-      </div>
+      <a className="skip-link" href="#main">
+        Skip to content
+      </a>
 
       <Navbar />
 
-      <main>
+      <main id="main" className="wrap">
         <Hero />
         <About />
         <Projects />
-        <Workflow />
-        <AILab />
+        <Log />
         <Skills />
-        <Journey />
         <Contact />
       </main>
 

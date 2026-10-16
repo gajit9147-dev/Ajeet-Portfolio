@@ -6,17 +6,14 @@ const ajeetProfile = {
     status: "Currently studying",
     currentSemester: "3rd Semester",
     yearsStudied: 2,
-    location: "Vadodara, Gujarat, India",
   },
 
   education: {
-    university: "Parul University",
     program: "Computer Science & Engineering",
     specialization: "Artificial Intelligence & Machine Learning",
     semester: "3rd Semester",
     duration: "2025 - 2029",
     currentStatus: "Currently studying",
-    campus: "P.O. Limda, Ta. Waghodia, Vadodara, Gujarat 391760, India",
   },
 
   about: {
@@ -36,7 +33,6 @@ const ajeetProfile = {
 
   contact: {
     email: "ajeetgupta80045@gmail.com",
-    phone: "8787095611",
   },
 
   profiles: {

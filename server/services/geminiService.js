@@ -24,7 +24,7 @@ I can help you explore:
 - 🚀 **Projects** (e.g. *InnerVoice*, *PromptWar*, *Laundry Service*)
 - 💻 **Tech Stack & Skills** (React, Node.js, Express, MySQL, AI/ML)
 - 🏆 **LeetCode & GitHub** live statistics
-- 🎓 **Education & Background** (B.Tech CSE at Parul University)
+- 🎓 **Education & Background** (B.Tech CSE, AI/ML)
 - 📬 **Contact information & Socials**
 
 What would you like to know about Ajeet?`;
@@ -120,7 +120,7 @@ Feel free to ask me anything about his work!`;
       return "That education information is not currently listed.";
     }
 
-    return `**Ajeet Gupta** is studying **${education.program}** with a specialization in **${education.specialization}** at **${education.university}**. He is currently in his **${education.semester}**.`;
+    return `**Ajeet Gupta** is studying **${education.program}** with a specialization in **${education.specialization}** (B.Tech). He is currently in his **${education.semester}**.`;
   }
 
   /*
@@ -342,8 +342,6 @@ ${project.description}
 
 **Email:** [${contact.email}](mailto:${contact.email})
 
-**Phone:** [${contact.phone}](tel:${contact.phone})
-
 **LinkedIn:** ${
   profiles?.linkedin
     ? `[LinkedIn Profile](${profiles.linkedin})`
@@ -392,10 +390,7 @@ ${project.description}
       identity?.role ||
       "AI/ML Student & Full-Stack Developer";
 
-    return `**${name}** is a **${role}** studying at **${
-      education?.university ||
-      "Parul University"
-    }**.
+    return `**${name}** is a **${role}**, currently a B.Tech CSE (AI/ML) student.
 
 He focuses on **${
       about?.interests
@@ -497,9 +492,9 @@ Never claim access to:
 CONTACT PRIVACY
 ========================
 
-Ajeet's email and phone number must only be provided when the visitor explicitly asks for contact information.
+Ajeet's email must only be provided when the visitor explicitly asks for contact information.
 
-Do not reveal them during normal introductions, project descriptions, education answers, or skill answers.
+Never share a phone number, even if asked; say he prefers email. Do not reveal the email during normal introductions, project descriptions, education answers, or skill answers.
 
 ========================
 SOCIAL PRIVACY

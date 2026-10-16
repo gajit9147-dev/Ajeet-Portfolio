@@ -2,216 +2,117 @@ import "./Projects.css";
 
 const projects = [
   {
-    number: "01",
-    title: "InnerVoice",
-    category: "AI · FULL-STACK",
-    description:
-      "A full-stack digital space for private notes, authentication, profile management, and dashboard analytics with a custom Liquid Glass experience.",
-    stack: ["React", "Vite", "Node.js", "Express", "MySQL", "JWT"],
-    status: "ACTIVE",
-    github: "https://github.com/gajit9147-dev/innerVoice",
-    live: null,
-    domain: "innervoice.dev",
-    image: "/images/projects/innervoice.jpg",
-  },
-  {
-    number: "02",
-    title: "PromptWar",
-    category: "AI · PROMPT BATTLE",
-    description:
-      "An AI-powered competitive prompt engineering platform with battle arena, leaderboard, scoring analytics, and Gemini AI evaluation.",
-    stack: ["React", "Vite", "Node.js", "Express", "Gemini AI"],
-    status: "LIVE",
-    github: "https://github.com/gajit9147-dev/PromptWar",
-    live: "https://prompt-war-lake.vercel.app",
-    domain: "prompt-war-lake.vercel.app",
-    image: "/images/projects/promptwar.jpg",
-  },
-  {
-    number: "03",
-    title: "Laundry Service",
-    category: "WEB · FRONTEND",
-    description:
-      "A responsive on-demand laundry and dry-cleaning service platform with package selection, booking workflow, and EmailJS integration.",
-    stack: ["HTML", "Tailwind CSS", "JavaScript", "EmailJS"],
-    status: "LIVE",
-    github: "https://github.com/gajit9147-dev/LP",
-    live: "https://gajit9147-dev.github.io/LP/",
-    domain: "gajit9147-dev.github.io/LP",
-    image: "/images/projects/laundry.jpg",
-  },
-  {
-    number: "04",
-    title: "Interior Design",
-    category: "WEB · 3D ARCHITECTURE",
-    description:
-      "A luxury interior design studio experience inspired by modern 3D home-design platforms, highlighting editorial layouts and spatial visual presentation.",
-    stack: ["HTML", "CSS", "JavaScript"],
-    status: "LIVE",
-    github: "https://github.com/gajit9147-dev/intreior-design",
-    live: "https://gajit9147-dev.github.io/intreior-design/",
-    domain: "gajit9147-dev.github.io/intreior-design",
-    image: "/images/projects/interior.jpg",
-  },
-  {
-    number: "05",
     title: "ScamShield",
-    category: "AI · PAYMENTS · HACKATHON",
-    description:
-      "An AI payment-scam checker for the PayPal AI Hackathon. It scores invoices and payment requests with Gemini plus rules, and opens PayPal sandbox checkout only when the request looks safe.",
-    stack: ["React", "Node.js", "Express", "Gemini AI", "PayPal API"],
-    status: "LIVE",
-    github: "https://github.com/gajit9147-dev/scam-shield-paypal",
-    live: "https://scam-shield-paypal.onrender.com/",
-    domain: "scam-shield-paypal.onrender.com",
+    context: "PayPal AI Hackathon",
+    text: "Paste a message, link or invoice. It scores the risk with Gemini plus some rules, and opens PayPal checkout only if the request looks safe.",
     image: "/images/projects/scamshield.jpg",
+    alt: "ScamShield home page with a text box to paste a payment request",
+    caption: "ScamShield start page, captured 16 Oct 2026",
+    live: "https://scam-shield-paypal.onrender.com/",
+    code: "https://github.com/gajit9147-dev/scam-shield-paypal",
+    limit:
+      "Sandbox only, no real money. The site shows 40 labelled test requests. That is a small test, not proof it works on real scams.",
+  },
+  {
+    title: "QuietWindow",
+    context: "Amazon Developer Hackathon",
+    text: "A simulated Alexa+ page that plans chores around quiet time and gives a reason for each one. Nothing saves until you apply.",
+    image: "/images/projects/quietwindow.jpg",
+    alt: "QuietWindow plan review screen with a household request box and a tool call trace",
+    caption: "QuietWindow plan view, captured 16 Oct 2026",
+    live: "https://quietwindow.onrender.com/",
+    code: "https://github.com/gajit9147-dev/quietwindow",
+    limit:
+      "A web simulation with a fictional household, not a real Alexa skill. Free hosting, so it can take a minute to wake up.",
+  },
+  {
+    title: "PromptWar",
+    context: "prompt engineering and project scoring",
+    text: "Scores hackathon project ideas and gives mentor-style feedback using Gemini, with a simple fallback rule when the model is not available. The live site is branded VentureMind.",
+    image: "/images/projects/promptwar.jpg",
+    alt: "VentureMind landing page that turns skills and interests into a scored project blueprint",
+    caption: "PromptWar live site (VentureMind), captured 16 Oct 2026",
+    live: "https://prompt-war-lake.vercel.app",
+    code: "https://github.com/gajit9147-dev/PromptWar",
+    limit:
+      "The scores are an AI opinion or a fallback rule, so treat them as hints, not a verdict.",
+  },
+  {
+    title: "QuickBerth",
+    context: "Tatkal request planner",
+    text: "Pick a preferred train and three backups and send one clear Tatkal request. Search, fare boxes and a date picker are built into the plan page.",
+    image: "/images/projects/quickberth.jpg",
+    alt: "QuickBerth plan page with a Tatkal window banner and a train video",
+    caption: "QuickBerth plan page, captured 16 Oct 2026",
+    live: "https://quickberth.dpdns.org",
+    code: "https://github.com/gajit9147-dev/QuickBerth",
+    limit:
+      "The site itself says its confirmation target is not measured or guaranteed and depends on live availability.",
+  },
+  {
+    title: "InnerVoice",
+    context: "full-stack practice project",
+    text: "Private notes with login, a profile page and a small dashboard. React and Express on the front, MySQL and JWT behind it.",
+    code: "https://github.com/gajit9147-dev/innerVoice",
+    limit: "No live demo and no screenshot yet. The code is on GitHub.",
   },
 ];
 
-function BrowserMockup({ project }) {
+export default function Projects() {
   return (
-    <div className="browser-mockup">
-      <div className="browser-header">
-        <div className="browser-dots">
-          <span className="dot dot-red" />
-          <span className="dot dot-amber" />
-          <span className="dot dot-green" />
-        </div>
-
-        <div className="browser-address">
-          <span className="lock-icon" aria-hidden="true">🔒</span>
-          <span className="domain-text">{project.domain}</span>
-        </div>
-
-        <span className={`status-badge ${project.status.toLowerCase()}`}>
-          <i />
-          {project.status}
-        </span>
-      </div>
-
-      <div className="browser-screen">
-        <img
-          src={project.image}
-          alt={`${project.title} webpage preview`}
-          className="browser-screenshot"
-          loading="lazy"
-        />
-        <div className="browser-overlay">
-          {project.live ? (
-            <a
-              href={project.live}
-              target="_blank"
-              rel="noreferrer"
-              className="overlay-btn primary"
-            >
-              <span>Visit Webpage</span>
-              <span className="btn-arrow">↗</span>
-            </a>
-          ) : (
-            <a
-              href={project.github}
-              target="_blank"
-              rel="noreferrer"
-              className="overlay-btn"
-            >
-              <span>View Source</span>
-              <span className="btn-arrow">↗</span>
-            </a>
-          )}
+    <section id="projects">
+      <div className="cell">
+        <div className="cell-in">In [2]:</div>
+        <div className="cell-body">
+          <pre>
+            <span className="com"># projects.py</span>
+            {"\n"}projects = [
+            {projects.map((p) => (
+              <span key={p.title}>
+                {"\n  "}
+                <span className="str">&quot;{p.title}&quot;</span>,{" "}
+                <span className="com"># {p.context}</span>
+              </span>
+            ))}
+            {"\n"}]
+          </pre>
         </div>
       </div>
-    </div>
-  );
-}
 
-function ProjectCard({ project }) {
-  return (
-    <article className="modern-project-card">
-      <BrowserMockup project={project} />
+      {projects.map((p, i) => (
+        <article className="cell" key={p.title}>
+          <div className="cell-in">Out [{i + 1}]:</div>
+          <div className="cell-body">
+            <h2 className="project-title">{p.title}</h2>
+            <p className="project-text">{p.text}</p>
 
-      <div className="project-body">
-        <div className="project-header">
-          <span className="project-tag">{project.category}</span>
-        </div>
+            {p.image && (
+              <figure>
+                <img src={p.image} alt={p.alt} loading="lazy" className="shot" />
+                <figcaption className="fig">
+                  <b>Fig. {i + 1}</b> {p.caption}
+                </figcaption>
+              </figure>
+            )}
 
-        <h3 className="project-name">{project.title}</h3>
+            <div className="sub">
+              {p.live && (
+                <>
+                  <a href={p.live} target="_blank" rel="noreferrer">
+                    try it
+                  </a>{" "}
+                  &middot;{" "}
+                </>
+              )}
+              <a href={p.code} target="_blank" rel="noreferrer">
+                code
+              </a>
+            </div>
 
-        <p className="project-desc">{project.description}</p>
-
-        <div className="project-tags">
-          {project.stack.map((tech) => (
-            <span key={tech} className="tech-pill">
-              {tech}
-            </span>
-          ))}
-        </div>
-
-        <div className="project-footer">
-          {project.live ? (
-            <a
-              href={project.live}
-              target="_blank"
-              rel="noreferrer"
-              className="action-btn deploy-btn"
-            >
-              <span className="btn-icon">🚀</span>
-              <span>Live Demo</span>
-              <span className="btn-arrow">↗</span>
-            </a>
-          ) : (
-            <span className="action-btn dev-btn">
-              <span className="btn-icon">⚡</span>
-              <span>Full-Stack Dev</span>
-            </span>
-          )}
-
-          <a
-            href={project.github}
-            target="_blank"
-            rel="noreferrer"
-            className="action-btn github-btn"
-          >
-            <svg
-              className="github-svg"
-              viewBox="0 0 24 24"
-              width="14"
-              height="14"
-              fill="currentColor"
-              aria-hidden="true"
-            >
-              <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z" />
-            </svg>
-            <span>GitHub</span>
-            <span className="btn-arrow">↗</span>
-          </a>
-        </div>
-      </div>
-    </article>
-  );
-}
-
-function Projects() {
-  return (
-    <section className="section projects-section" id="projects">
-      <div className="section-shell">
-        <div className="section-heading">
-          <span className="section-index">SELECTED WORK</span>
-          <h2>Featured Projects</h2>
-
-          <p>
-            Curated systems, web applications, and AI tools built with modern
-            engineering, interactive UI design, and production deployments.
-          </p>
-        </div>
-
-        <div className="projects-grid">
-          {projects.map((project) => (
-            <ProjectCard key={project.title} project={project} />
-          ))}
-        </div>
-      </div>
+            <p className="project-text warn">{p.limit}</p>
+          </div>
+        </article>
+      ))}
     </section>
   );
 }
-
-export default Projects;

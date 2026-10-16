@@ -8,14 +8,14 @@ const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:5000";
 const suggestedQuestions = [
   "What has Ajeet built?",
   "What is Ajeet's tech stack?",
-  "Tell me about InnerVoice",
+  "Tell me about ScamShield",
   "What is Ajeet learning?",
 ];
 
 const initialMessage = {
   role: "assistant",
   content:
-    "Hi. I'm Ajeet AI — an interface for exploring Ajeet's projects, skills and journey.",
+    "Hi, I'm Ajeet AI. I answer questions about Ajeet's projects and skills using facts from this site. If I don't know, I'll say so.",
 };
 
 function AIAssistant() {
@@ -109,35 +109,19 @@ function AIAssistant() {
       <button
         className={`ai-launcher ${open ? "is-open" : ""}`}
         onClick={() => setOpen((value) => !value)}
-        aria-label="Open Ajeet AI"
+        aria-label={open ? "Close Ajeet AI chat" : "Open Ajeet AI chat"}
+        aria-expanded={open}
       >
-        <span className="ai-launcher-core">
-          <span>AI</span>
-        </span>
-
-        <span className="ai-launcher-copy">
-          <strong>AJEET AI</strong>
-          <small>ASK MY SYSTEM</small>
-        </span>
-
-        <span className="ai-launcher-arrow">
-          {open ? "×" : "↗"}
-        </span>
+        {open ? "close" : "\u25B8 ask_ajeet()"}
       </button>
 
       {open && (
-        <div className="ai-chat glass">
+        <div className="ai-chat" role="dialog" aria-label="Ajeet AI chat">
           <div className="ai-chat-header">
             <div className="ai-chat-title">
-              <span className="ai-chat-orb">AI</span>
-
               <div>
-                <strong>AJEET AI</strong>
-
-                <span>
-                  <i />
-                  {loading ? "PROCESSING" : "SYSTEM READY"}
-                </span>
+                <strong>Ajeet AI</strong>
+                <span>{loading ? "thinking..." : "ready"}</span>
               </div>
             </div>
 
@@ -148,7 +132,7 @@ function AIAssistant() {
                 disabled={loading}
                 title="Clear conversation"
               >
-                CLEAR
+                clear
               </button>
 
               <button
@@ -156,7 +140,7 @@ function AIAssistant() {
                 onClick={() => setOpen(false)}
                 aria-label="Close Ajeet AI"
               >
-                ×
+                &times;
               </button>
             </div>
           </div>
@@ -170,7 +154,7 @@ function AIAssistant() {
                 }`}
               >
                 <span className="ai-message-label">
-                  {message.role === "assistant" ? "AI" : "YOU"}
+                  {message.role === "assistant" ? "ai" : "you"}
                 </span>
 
                 <div className="ai-message-content">
@@ -214,7 +198,7 @@ function AIAssistant() {
 
             {messages.length === 1 && !loading && (
               <div className="ai-suggestions">
-                <span>TRY ASKING</span>
+                <span>try asking</span>
 
                 {suggestedQuestions.map((question) => (
                   <button
@@ -222,7 +206,6 @@ function AIAssistant() {
                     onClick={() => sendMessage(question)}
                   >
                     {question}
-                    <span>↗</span>
                   </button>
                 ))}
               </div>
@@ -238,13 +221,13 @@ function AIAssistant() {
               sendMessage(input);
             }}
           >
-            <span className="ai-input-prompt">$</span>
+            <span className="ai-input-prompt" aria-hidden="true">&gt;</span>
 
             <input
               value={input}
               onChange={(event) => setInput(event.target.value)}
               placeholder={
-                loading ? "AI is thinking..." : "Ask about Ajeet..."
+                loading ? "thinking..." : "ask about my projects..."
               }
               disabled={loading}
               aria-label="Ask Ajeet AI"
@@ -254,7 +237,7 @@ function AIAssistant() {
               type="submit"
               disabled={loading || !input.trim()}
             >
-              {loading ? "..." : "SEND ↗"}
+              {loading ? "..." : "run \u25B6"}
             </button>
           </form>
         </div>
